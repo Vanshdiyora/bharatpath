@@ -27,20 +27,43 @@ export function MetricCard({
   tone,
 }: MetricCardProps) {
   return (
-    <div className="rounded-xl border border-[#e5e7ec] bg-white p-5">
+    <div className="rounded-[16px] border border-[#e5e7ec] bg-white px-6 py-5">
       <div className="flex items-start justify-between">
-        <p className="text-2xl font-semibold text-[#151b2b]">
+        {/* Value */}
+        <p
+          className="text-[28px] font-[700] leading-[38px] tracking-[-0.02em] text-[#151b2b]"
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 700,
+          }}
+        >
           {value}
         </p>
 
+        {/* Icon */}
         <div
-          className={`flex h-9 w-9 items-center justify-center rounded-full ${toneClasses[tone]}`}
+          className={`
+            flex h-[32px] w-[32px]
+            items-center justify-center
+            rounded-[11px]
+            ${toneClasses[tone]}
+          `}
         >
-          <Icon size={17} />
+          <Icon
+            size={16}
+            strokeWidth={2}
+          />
         </div>
       </div>
 
-      <p className="mt-3 text-[13px] text-[#777f90]">
+      {/* Title */}
+      <p
+        className="text-[12px] font-[400] leading-[20px] text-[#777f90]"
+        style={{
+          fontFamily: "'General Sans', sans-serif",
+          fontWeight: 400,
+        }}
+      >
         {title}
       </p>
     </div>

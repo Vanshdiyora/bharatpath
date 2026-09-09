@@ -34,7 +34,25 @@ export function RecentActivityList({
         Recent activity
       </h2>
 
-      <div className="mt-5 space-y-5">
+      <div
+        className="
+          mt-5
+          max-h-[320px]
+          space-y-5
+          overflow-y-auto
+          pr-1
+
+          [&::-webkit-scrollbar]:w-[6px]
+          [&::-webkit-scrollbar-track]:bg-transparent
+          [&::-webkit-scrollbar-thumb]:rounded-full
+          [&::-webkit-scrollbar-thumb]:bg-[#c7cbd2]
+          [&::-webkit-scrollbar-thumb]:hover:bg-[#b5bac3]
+        "
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#c7cbd2 transparent",
+        }}
+      >
         {activities.map((activity) => {
           const Icon = icons[activity.type];
 

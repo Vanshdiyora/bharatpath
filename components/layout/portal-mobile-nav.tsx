@@ -8,7 +8,7 @@ export function PortalMobileNav() {
   const pathname = usePathname();
 
   return (
-    <div className="overflow-x-auto border-b border-[#e7e9ee] bg-white lg:hidden">
+    <div className="shrink-0 overflow-x-auto border-b border-[#e7e9ee] bg-white lg:hidden">
       <nav className="flex min-w-max gap-1 p-2">
         {collegeNavigation.map((item) => {
           const href =

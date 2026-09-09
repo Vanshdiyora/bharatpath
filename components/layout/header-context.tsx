@@ -27,6 +27,7 @@ interface HeaderContent {
   subtitle: string;
   badge?: HeaderBadge;
   stat?: HeaderStat;
+  action?: ReactNode;
 }
 
 interface HeaderContextValue extends HeaderContent {
@@ -71,9 +72,10 @@ export function useHeaderContent() {
   return context;
 }
 
-interface PageHeaderOptions {
+export interface PageHeaderOptions {
   badge?: HeaderBadge;
   stat?: HeaderStat;
+  action?: ReactNode;
 }
 
 export function usePageHeader(
@@ -82,7 +84,7 @@ export function usePageHeader(
   options?: PageHeaderOptions,
 ) {
   const { setHeader } = useHeaderContent();
-  const { badge, stat } = options ?? {};
+  const { badge, stat, action } = options ?? {};
 
   // Icons are stable component references, so they're left out of the
   // dependency string below and only the data fields are compared.
@@ -92,7 +94,8 @@ export function usePageHeader(
     : "";
 
   useEffect(() => {
-    setHeader({ title, subtitle, badge, stat });
+    setHeader({ title, subtitle, badge, stat, action });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, subtitle, setHeader, badgeKey, statKey]);
+  }, [title, subtitle, setHeader, badgeKey, statKey, action]);
 }
+

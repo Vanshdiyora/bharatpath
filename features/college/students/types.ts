@@ -6,7 +6,8 @@ export type StudentStatus =
 export type ScoreBand =
   | "building"
   | "strong"
-  | "exceptional";
+  | "exceptional"
+  | "not_scored";
 
 export interface CollegeStudent {
   id: string;

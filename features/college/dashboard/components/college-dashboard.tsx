@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import {
-  BriefcaseBusiness,
+  Briefcase,
   Check,
   Copy,
   Gauge,
+  Mail,
   ShieldCheck,
+  Upload,
   Users,
 } from "lucide-react";
 
@@ -41,8 +43,9 @@ export function CollegeDashboard({
   );
 
   return (
-    <div className="mx-auto max-w-[1280px] space-y-6">
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="flex flex-col gap-4">
+      {/* Metrics */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard
           title="Students linked"
           value={data.stats.studentsLinked}
@@ -67,113 +70,243 @@ export function CollegeDashboard({
         <MetricCard
           title="Hired via platform"
           value={data.stats.hiredViaPlatform}
-          icon={BriefcaseBusiness}
+          icon={Briefcase}
           tone="orange"
         />
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-2">
-        <ScoreDistribution
-          bands={data.scoreBands}
-          averageScore={data.stats.averageScore}
-        />
+      {/* Main dashboard */}
+      <div className="grid items-start gap-4 lg:grid-cols-[1.5fr_1fr]">
+        {/* Left column */}
+        <div className="flex min-w-0 flex-col gap-4">
+          <ScoreDistribution
+            bands={data.scoreBands}
+            averageScore={data.stats.averageScore}
+          />
 
+          <ReferralCode code={data.referralCode} />
+        </div>
+
+        {/* Right column */}
         <RecentActivityList
           activities={data.recentActivity}
         />
-      </div>
-
-      <div className="grid gap-5 lg:grid-cols-2">
-        <ReferralCode code={data.referralCode} />
-
-        <div className="rounded-xl border border-[#e5e7ec] bg-white p-5">
-          <div className="flex justify-between">
-            <div>
-              <p className="text-xs text-[#8a91a0]">
-                Seats
-              </p>
-
-              <p className="mt-1 text-lg font-semibold text-[#151b2b]">
-                {data.seats.used} /{" "}
-                {data.seats.total}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-4 h-2 rounded-full bg-[#f0f1f4]">
-            <div
-              className="h-full rounded-full bg-[#5b4fcf]"
-              style={{
-                width: `${Math.min(
-                  100,
-                  (data.seats.used /
-                    data.seats.total) *
-                    100,
-                )}%`,
-              }}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2 className="text-sm font-semibold text-[#252b3b]">
-          Quick actions
-        </h2>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button className="rounded-lg bg-[#151b2b] px-4 py-2.5 text-xs font-semibold text-white">
-            Invite students by email
-          </button>
-
-          <button className="rounded-lg border border-[#dfe2e8] bg-white px-4 py-2.5 text-xs font-semibold text-[#303747]">
-            Bulk upload a roster
-          </button>
-        </div>
       </div>
     </div>
   );
 }
 
-function ReferralCode({ code }: { code: string }) {
+function ReferralCode({
+  code,
+}: {
+  code: string;
+}) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 1500);
+    } catch {
+      setCopied(false);
+    }
   };
 
   return (
-    <div className="rounded-xl border border-[#e5e7ec] bg-white p-5">
-      <h2 className="text-sm font-semibold text-[#252b3b]">
-        Referral code
-      </h2>
+    <div
+      className="
+        flex flex-col gap-3
+        rounded-xl
+        border border-[#e5e7ec]
+        bg-white
+        p-5
+        shadow-[0_4px_12px_rgba(19,26,38,0.024)]
+      "
+    >
+      {/* Header */}
+      <div className="flex flex-col gap-[2px]">
+        <h2
+          className="
+            text-[14px]
+            font-[600]
+            leading-[18px]
+            text-[#151b2b]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 600,
+          }}
+        >
+          Referral code
+        </h2>
 
-      <p className="mt-1 text-xs text-[#8a91a0]">
-        Students enter this code in the BharatPath
-        app to link their account to your
-        institution.
-      </p>
+        <p
+          className="
+            text-[12px]
+            font-[400]
+            leading-[17px]
+            text-[#303747]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 400,
+          }}
+        >
+          Students enter this code in the BharatPath app
+          to link their account to your institution.
+        </p>
+      </div>
 
-      <div className="mt-4 flex items-center justify-between gap-3">
-        <code className="rounded-lg bg-[#f5f6f8] px-3 py-2 text-sm font-semibold text-[#252b3b]">
+      {/* Referral code */}
+      <div
+        className="
+          flex
+          items-center
+          gap-[10px]
+          rounded-xl
+          border
+          border-dashed
+          border-[#e5e7ec]
+          bg-[#f5f6f8]
+          px-4
+          py-3
+        "
+      >
+        <code
+          className="
+            min-w-0
+            flex-1
+            truncate
+            text-[18px]
+            font-[700]
+            leading-[23px]
+            tracking-[0.04em]
+            text-[#151b2b]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 700,
+          }}
+        >
           {code}
         </code>
 
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[#dfe2e8] px-3 py-2 text-xs font-semibold text-[#303747]"
+          className="
+            flex
+            shrink-0
+            items-center
+            gap-[6px]
+            rounded-lg
+            border
+            border-[#e5e7ec]
+            bg-white
+            px-3
+            py-2
+            text-[12px]
+            font-[600]
+            leading-[16px]
+            text-[#151b2b]
+            transition-colors
+            hover:bg-[#f8f9fb]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 600,
+          }}
         >
           {copied ? (
-            <Check size={13} />
+            <Check size={14} strokeWidth={2} />
           ) : (
-            <Copy size={13} />
+            <Copy size={14} strokeWidth={2} />
           )}
+
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
+
+      {/* Quick actions */}
+      <div className="flex gap-[10px] border-t border-[#eef0f3] pt-3">
+        <QuickAction
+          icon={Mail}
+          label="Invite students by email"
+        />
+
+        <QuickAction
+          icon={Upload}
+          label="Bulk upload a roster"
+        />
+      </div>
     </div>
+  );
+}
+
+function QuickAction({
+  icon: Icon,
+  label,
+}: {
+  icon: typeof Mail;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      className="
+        flex
+        min-w-0
+        flex-1
+        items-center
+        gap-[10px]
+        rounded-[10px]
+        border
+        border-[#e5e7ec]
+        bg-white
+        p-3
+        text-left
+        transition-colors
+        hover:bg-[#f8f9fb]
+      "
+    >
+      <span
+        className="
+          grid
+          h-8
+          w-8
+          shrink-0
+          place-items-center
+          rounded-lg
+          bg-[#eef0ff]
+        "
+      >
+        <Icon
+          size={16}
+          strokeWidth={2}
+          className="text-[#4e43b7]"
+        />
+      </span>
+
+      <span
+        className="
+          min-w-0
+          flex-1
+          text-[13px]
+          font-[600]
+          leading-[17px]
+          text-[#151b2b]
+        "
+        style={{
+          fontFamily: "'General Sans', sans-serif",
+          fontWeight: 600,
+        }}
+      >
+        {label}
+      </span>
+    </button>
   );
 }

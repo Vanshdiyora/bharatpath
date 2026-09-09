@@ -2,17 +2,27 @@
 
 import {
   Armchair,
-  Bell,
   ChevronRight,
   FlaskConical,
 } from "lucide-react";
 
 import { useAppSelector } from "@/store/hooks";
 import { selectPortal } from "@/store/selectors/tenant.selectors";
-import { PORTAL_TYPES, PortalType } from "@/config/portal";
+import {
+  PORTAL_TYPES,
+  PortalType,
+} from "@/config/portal";
+
+import {
+  NotificationCenter,
+} from "@/features/notifications";
+
 import { useHeaderContent } from "./header-context";
 
-const PORTAL_BADGE_LABEL: Record<PortalType, string> = {
+const PORTAL_BADGE_LABEL: Record<
+  PortalType,
+  string
+> = {
   [PORTAL_TYPES.COLLEGE]: "DEMO STATE",
   [PORTAL_TYPES.STUDENT]: "DEMO STATE",
   [PORTAL_TYPES.EMPLOYER]: "DEMO STATE",
@@ -20,9 +30,16 @@ const PORTAL_BADGE_LABEL: Record<PortalType, string> = {
 };
 
 export function PortalHeader() {
-  const { title, subtitle, badge, stat } = useHeaderContent();
+  const {
+    title,
+    subtitle,
+    badge,
+    stat,
+    action,
+  } = useHeaderContent();
 
-  const portal = useAppSelector(selectPortal);
+  const portal =
+    useAppSelector(selectPortal);
 
   const resolvedBadge = badge ?? {
     icon: FlaskConical,
@@ -38,7 +55,7 @@ export function PortalHeader() {
         min-h-[64px]
         shrink-0
         items-center
-        gap-[8px]
+        gap-[12px]
         border-b
         border-[#e7e9ee]
         bg-white
@@ -46,7 +63,8 @@ export function PortalHeader() {
         py-[10px]
       "
       style={{
-        fontFamily: "'General Sans', sans-serif",
+        fontFamily:
+          "'General Sans', sans-serif",
       }}
     >
       {/* TITLE + SUBTITLE */}
@@ -56,7 +74,7 @@ export function PortalHeader() {
           min-w-0
           flex-1
           flex-col
-          gap-[4px]
+          gap-[2px]
         "
       >
         <h1
@@ -70,7 +88,8 @@ export function PortalHeader() {
             text-[#151b2b]
           "
           style={{
-            fontFamily: "'General Sans', sans-serif",
+            fontFamily:
+              "'General Sans', sans-serif",
             fontWeight: 700,
           }}
         >
@@ -81,13 +100,14 @@ export function PortalHeader() {
           className="
             truncate
             whitespace-nowrap
-            text-[12px]
+            text-[12.5px]
             leading-[17px]
             font-[400]
             text-[#777f90]
           "
           style={{
-            fontFamily: "'General Sans', sans-serif",
+            fontFamily:
+              "'General Sans', sans-serif",
             fontWeight: 400,
           }}
         >
@@ -96,45 +116,41 @@ export function PortalHeader() {
       </div>
 
       {/* DEMO STATE */}
-      <button
-        type="button"
+      <div
         className="
           hidden
           shrink-0
           items-center
           gap-[6px]
-          rounded-[8px]
-          px-[12px]
+          px-[6px]
           py-[7px]
-          text-[#777f90]
+          text-[#5d6673]
           sm:flex
         "
         style={{
-          fontFamily: "'General Sans', sans-serif",
+          fontFamily:
+            "'General Sans', sans-serif",
         }}
       >
         {resolvedBadge.icon && (
           <resolvedBadge.icon
-            size={14}
+            size={15}
             strokeWidth={2}
+            className="shrink-0"
           />
         )}
 
         <span
           className="
-            text-[11px]
+            text-[11.5px]
             leading-[14px]
-            font-[600]
+            font-[700]
             tracking-[0.04em]
           "
-          style={{
-            fontFamily: "'General Sans', sans-serif",
-            fontWeight: 600,
-          }}
         >
           {resolvedBadge.label}
         </span>
-      </button>
+      </div>
 
       {/* SEATS */}
       {stat && (
@@ -144,27 +160,31 @@ export function PortalHeader() {
           title={`${stat.label} — open Seats & payment to add more before you run out`}
           className="
             flex
-            h-[36px]
+            h-[40px]
             shrink-0
             items-center
             gap-[10px]
-            rounded-[10px]
+            rounded-xl
             border
             border-[#e5e7ec]
             bg-white
             px-[10px]
             pl-[6px]
+            cursor-pointer
+            hover:border-[#cfd3dc]
+            transition-colors
           "
           style={{
-            fontFamily: "'General Sans', sans-serif",
+            fontFamily:
+              "'General Sans', sans-serif",
           }}
         >
           {/* ARMCHAIR */}
           <span
             className="
               grid
-              h-[24px]
-              w-[24px]
+              h-[28px]
+              w-[28px]
               shrink-0
               place-items-center
               rounded-[8px]
@@ -172,9 +192,9 @@ export function PortalHeader() {
             "
           >
             <Armchair
-              size={14}
-              strokeWidth={2}
-              className="text-[#5b4fcf]"
+              size={15}
+              strokeWidth={2.2}
+              className="text-[#2c62c4]"
             />
           </span>
 
@@ -183,34 +203,31 @@ export function PortalHeader() {
             className="
               flex
               flex-col
-              gap-[2px]
+              gap-[3px]
             "
           >
             <span
               className="
                 whitespace-nowrap
-                text-[12px]
+                text-[13px]
                 leading-[16px]
-                font-[600]
-                text-[#303747]
+                font-[700]
+                text-[#151b2b]
               "
-              style={{
-                fontFamily: "'General Sans', sans-serif",
-                fontWeight: 600,
-              }}
             >
               {stat.label}
             </span>
 
-            {typeof stat.progress === "number" && (
+            {typeof stat.progress ===
+              "number" && (
               <span
                 className="
                   block
-                  h-[4px]
-                  w-[88px]
+                  h-[3.5px]
+                  w-[96px]
                   overflow-hidden
                   rounded-full
-                  bg-[#e7e9ee]
+                  bg-[#e5e7ec]
                 "
               >
                 <span
@@ -218,12 +235,15 @@ export function PortalHeader() {
                     block
                     h-full
                     rounded-full
-                    bg-[#5b4fcf]
+                    bg-[#2c62c4]
                   "
                   style={{
                     width: `${Math.min(
                       100,
-                      Math.max(0, stat.progress),
+                      Math.max(
+                        0,
+                        stat.progress,
+                      ),
                     )}%`,
                   }}
                 />
@@ -233,49 +253,22 @@ export function PortalHeader() {
 
           {/* CHEVRON */}
           <ChevronRight
-            size={12}
+            size={14}
             strokeWidth={2}
-            className="shrink-0 text-[#5d6673]"
+            className="shrink-0 text-[#777f90]"
           />
         </button>
       )}
 
-      {/* NOTIFICATION */}
-      <button
-        type="button"
-        aria-label="Notifications"
-        className="
-          relative
-          flex
-          h-[36px]
-          w-[36px]
-          shrink-0
-          items-center
-          justify-center
-          rounded-[10px]
-          border
-          border-[#e5e7ec]
-          bg-white
-          text-[#777f90]
-        "
-      >
-        <Bell
-          size={17}
-          strokeWidth={1.8}
-        />
+      {/* ACTION BUTTON(S) */}
+      {action && (
+        <div className="flex shrink-0 items-center">
+          {action}
+        </div>
+      )}
 
-        <span
-          className="
-            absolute
-            right-[6px]
-            top-[6px]
-            h-[6px]
-            w-[6px]
-            rounded-full
-            bg-[#c62828]
-          "
-        />
-      </button>
+      {/* NOTIFICATION */}
+      <NotificationCenter />
     </header>
   );
 }

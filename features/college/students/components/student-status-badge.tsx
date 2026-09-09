@@ -1,41 +1,12 @@
 import { StudentStatus } from "../types";
-
-const STATUS_CONFIG: Record<
-  StudentStatus,
-  {
-    label: string;
-    className: string;
-  }
-> = {
-  linked: {
-    label: "Linked",
-    className:
-      "bg-[#eaf7ef] text-[#287a4d]",
-  },
-  invited: {
-    label: "Invited",
-    className:
-      "bg-[#f3f4f7] text-[#707787]",
-  },
-  consent_pending: {
-    label: "Consent pending",
-    className:
-      "bg-[#fff5dc] text-[#986c08]",
-  },
-};
+import { LinkStateBadge } from "@/components/ui/link-state-badge";
 
 export function StudentStatusBadge({
   status,
+  className = "",
 }: {
   status: StudentStatus;
+  className?: string;
 }) {
-  const config = STATUS_CONFIG[status];
-
-  return (
-    <span
-      className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold ${config.className}`}
-    >
-      {config.label}
-    </span>
-  );
+  return <LinkStateBadge state={status} className={className} />;
 }

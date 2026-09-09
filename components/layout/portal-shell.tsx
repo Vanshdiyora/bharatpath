@@ -18,18 +18,18 @@ export function PortalShell({
 
   return (
     <HeaderProvider>
-      <div className="flex min-h-screen bg-[#f8f9fb]">
+      <div className="flex h-screen w-full overflow-hidden bg-[#f8f9fb]">
         <PortalSidebar
           collapsed={collapsed}
           onToggle={() => setCollapsed((value) => !value)}
         />
 
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className="flex min-w-0 flex-1 flex-col h-full overflow-hidden">
           <PortalHeader />
 
           <PortalMobileNav />
 
-          <main className="flex-1 overflow-x-hidden p-4 sm:p-5 lg:p-7">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 bp-scrollbar">
             {children}
           </main>
         </div>

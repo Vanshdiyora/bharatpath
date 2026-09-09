@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeftToLine, LogOut } from "lucide-react";
+import {
+  ArrowLeftToLine,
+  LogOut,
+} from "lucide-react";
+
 import { collegeNavigation } from "@/config/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectTenantName } from "@/store/selectors/tenant.selectors";
@@ -24,7 +28,7 @@ export function PortalSidebar({
 
   const tenantName =
     useAppSelector(selectTenantName) ??
-    "BharatPath College";
+    "Sinhgad Institute of Technology";
 
   const initials = tenantName
     .split(" ")
@@ -42,19 +46,31 @@ export function PortalSidebar({
 
   return (
     <aside
-      className="hidden shrink-0 border-r border-[#e7e9ee] bg-white transition-all duration-200 lg:flex lg:flex-col"
+      className="hidden h-full shrink-0 flex-col border-r border-[#e7e9ee] bg-white transition-all duration-200 lg:flex"
       style={{
         width: collapsed ? 64 : 232,
       }}
     >
+      {/* =========================================================
+          SIDEBAR HEADER
+      ========================================================= */}
       <div
         className={`group relative flex min-h-6 items-center gap-2.25 ${
-          collapsed ? "justify-center px-2 py-5" : ""
+          collapsed
+            ? "justify-center px-2 py-5"
+            : ""
         }`}
-        style={collapsed ? undefined : { padding: "20px 12px 16px 16px" }}
+        style={
+          collapsed
+            ? undefined
+            : {
+                padding: "20px 12px 16px 16px",
+              }
+        }
       >
         {collapsed ? (
           <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
+            {/* Collapsed logo */}
             <Link
               href="/college"
               className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white opacity-100 transition-opacity group-hover:opacity-0"
@@ -62,6 +78,7 @@ export function PortalSidebar({
               B
             </Link>
 
+            {/* Expand button */}
             <button
               type="button"
               onClick={onToggle}
@@ -72,21 +89,23 @@ export function PortalSidebar({
               <ArrowLeftToLine
                 size={16}
                 className="rotate-180"
-                style={{ color: "var(--ink-muted)" }}
+                style={{
+                  color: "var(--ink-muted)",
+                }}
               />
             </button>
           </span>
         ) : (
-          <Link
-            href="/college"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white"
-          >
-            B
-          </Link>
-        )}
-
-        {!collapsed && (
           <>
+            {/* Logo */}
+            <Link
+              href="/college"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white"
+            >
+              B
+            </Link>
+
+            {/* Brand */}
             <span className="flex min-w-0 flex-1 flex-col overflow-hidden whitespace-nowrap">
               <span
                 style={{
@@ -109,6 +128,7 @@ export function PortalSidebar({
               </span>
             </span>
 
+            {/* Collapse button */}
             <button
               type="button"
               onClick={onToggle}
@@ -116,13 +136,21 @@ export function PortalSidebar({
               title="Collapse sidebar"
               className="grid h-7 w-7 shrink-0 cursor-pointer place-items-center rounded-lg hover:bg-[#f3f4f7]"
             >
-              <ArrowLeftToLine size={16} style={{ color: "var(--ink-muted)" }} />
+              <ArrowLeftToLine
+                size={16}
+                style={{
+                  color: "var(--ink-muted)",
+                }}
+              />
             </button>
           </>
         )}
       </div>
 
-      <nav className="flex-1 px-3">
+      {/* =========================================================
+          NAVIGATION
+      ========================================================= */}
+      <nav className="flex-1 overflow-y-auto px-3 bp-scrollbar">
         <div className="space-y-1">
           {collegeNavigation.map((item) => {
             const Icon = item.icon;
@@ -142,17 +170,25 @@ export function PortalSidebar({
               <Link
                 key={item.key}
                 href={href}
-                title={collapsed ? item.label : undefined}
+                title={
+                  collapsed
+                    ? item.label
+                    : undefined
+                }
                 style={{
                   font: '600 13px/17px "General Sans", sans-serif',
-                  color: active ? "var(--navy)" : "var(--ink-muted)",
+                  color: active
+                    ? "var(--navy)"
+                    : "var(--ink-muted)",
                   whiteSpace: "nowrap",
-                  background: active ? "var(--indigo-bg)" : undefined,
+                  background: active
+                    ? "var(--indigo-bg)"
+                    : undefined,
                 }}
-                className={`flex min-h-10 cursor-pointer items-center justify-start gap-[11px] rounded-lg px-[11px] py-[10px] transition ${
+                className={`flex min-h-10 cursor-pointer items-center gap-[11px] rounded-lg px-[11px] py-[10px] transition ${
                   collapsed
                     ? "justify-center px-2"
-                    : ""
+                    : "justify-start"
                 } ${
                   active
                     ? ""
@@ -176,20 +212,31 @@ export function PortalSidebar({
         </div>
       </nav>
 
+      {/* =========================================================
+          BOTTOM USER SECTION
+      ========================================================= */}
       <div
-        className="flex flex-col gap-[8px] border-t p-[10px]"
-        style={{ borderColor: "var(--border-hair)" }}
+        className="mt-auto shrink-0 border-t"
+        style={{
+          borderColor: "var(--border-hair)",
+        }}
       >
         <div
-          className={`flex items-center gap-[10px] py-[6px] ${
-            collapsed ? "justify-center px-1" : "px-[4px]"
+          className={`flex min-h-[76px] items-center gap-[10px] ${
+            collapsed
+              ? "justify-center px-2"
+              : "px-[16px]"
           }`}
         >
+          {/* =====================================================
+              USER AVATAR
+          ===================================================== */}
           <span
-            className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-white"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full"
             style={{
               background: "var(--navy)",
-              font: '600 12px/16px "General Sans", sans-serif',
+              color: "#fff",
+              font: '600 13px/16px "General Sans", sans-serif',
             }}
           >
             {initials}
@@ -197,35 +244,49 @@ export function PortalSidebar({
 
           {!collapsed && (
             <>
-              <span className="flex min-w-0 flex-1 flex-col gap-[1px]">
-                <span
+              {/* =================================================
+                  USER / COLLEGE INFORMATION
+              ================================================= */}
+              <div className="min-w-0 flex-1">
+                <div
                   className="truncate"
                   style={{
-                    font: '600 12px/16px "General Sans", sans-serif',
+                    font: '600 13px/17px "General Sans", sans-serif',
                     color: "var(--navy)",
                   }}
                 >
                   {tenantName}
-                </span>
+                </div>
 
-                <span
+                <div
+                  className="truncate"
                   style={{
-                    font: '400 11px/14px "General Sans", sans-serif',
+                    marginTop: "1px",
+                    font: '400 12px/16px "General Sans", sans-serif',
                     color: "var(--ink-muted)",
                   }}
                 >
                   Placement cell
-                </span>
-              </span>
+                </div>
+              </div>
 
+              {/* =================================================
+                  LOGOUT BUTTON
+              ================================================= */}
               <button
                 type="button"
                 onClick={handleLogout}
                 aria-label="Log out"
                 title="Log out"
-                className="grid h-7 w-7 shrink-0 cursor-pointer place-items-center rounded-lg hover:bg-[#f5f6f8]"
+                className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-lg transition-colors hover:bg-[#f5f6f8]"
               >
-                <LogOut size={16} style={{ color: "var(--ink-muted)" }} />
+                <LogOut
+                  size={18}
+                  strokeWidth={1.8}
+                  style={{
+                    color: "var(--ink-muted)",
+                  }}
+                />
               </button>
             </>
           )}
