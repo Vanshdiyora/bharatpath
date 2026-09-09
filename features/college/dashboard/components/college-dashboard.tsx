@@ -75,6 +75,7 @@ export function CollegeDashboard({
       <div className="grid gap-5 lg:grid-cols-2">
         <ScoreDistribution
           bands={data.scoreBands}
+          averageScore={data.stats.averageScore}
         />
 
         <RecentActivityList

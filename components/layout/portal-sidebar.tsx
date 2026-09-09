@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronLeft, ChevronRight, LogOut } from "lucide-react";
+import { ArrowLeftToLine, LogOut } from "lucide-react";
 import { collegeNavigation } from "@/config/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectTenantName } from "@/store/selectors/tenant.selectors";
@@ -48,53 +48,77 @@ export function PortalSidebar({
       }}
     >
       <div
-        className={`flex items-center ${
-          collapsed
-            ? "justify-center px-2"
-            : "justify-between px-4"
-        } py-5`}
+        className={`group relative flex min-h-6 items-center gap-2.25 ${
+          collapsed ? "justify-center px-2 py-5" : ""
+        }`}
+        style={collapsed ? undefined : { padding: "20px 12px 16px 16px" }}
       >
-        <Link
-          href="/college"
-          className="flex items-center gap-2"
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white">
-            B
-          </div>
+        {collapsed ? (
+          <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
+            <Link
+              href="/college"
+              className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white opacity-100 transition-opacity group-hover:opacity-0"
+            >
+              B
+            </Link>
 
-          {!collapsed && (
-            <div>
-              <div className="text-[14px] font-semibold text-[#151b2b]">
-                BharatPath
-              </div>
-
-              <div className="text-[11px] text-[#777f90]">
-                College Portal
-              </div>
-            </div>
-          )}
-        </Link>
-
-        {!collapsed && (
-          <button
-            type="button"
-            onClick={onToggle}
-            className="rounded-lg p-1.5 text-[#777f90] hover:bg-[#f3f4f7]"
-            aria-label="Collapse sidebar"
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-label="Expand sidebar"
+              title="Expand sidebar"
+              className="absolute inset-0 grid cursor-pointer place-items-center rounded-lg opacity-0 transition-opacity group-hover:opacity-100 hover:bg-[#f3f4f7]"
+            >
+              <ArrowLeftToLine
+                size={16}
+                className="rotate-180"
+                style={{ color: "var(--ink-muted)" }}
+              />
+            </button>
+          </span>
+        ) : (
+          <Link
+            href="/college"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#151b2b] text-sm font-bold text-white"
           >
-            <ChevronLeft size={16} />
-          </button>
+            B
+          </Link>
         )}
 
-        {collapsed && (
-          <button
-            type="button"
-            onClick={onToggle}
-            className="absolute left-[52px] rounded-lg bg-white p-1 text-[#777f90] shadow-sm"
-            aria-label="Expand sidebar"
-          >
-            <ChevronRight size={14} />
-          </button>
+        {!collapsed && (
+          <>
+            <span className="flex min-w-0 flex-1 flex-col overflow-hidden whitespace-nowrap">
+              <span
+                style={{
+                  font: '800 14px/17px "General Sans", sans-serif',
+                  letterSpacing: "-0.01em",
+                  color: "#151b2b",
+                }}
+              >
+                BharatPath
+              </span>
+
+              <span
+                style={{
+                  font: '700 10px/13px "General Sans", sans-serif',
+                  letterSpacing: "0.14em",
+                  color: "var(--ink-muted)",
+                }}
+              >
+                COLLEGE
+              </span>
+            </span>
+
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-label="Collapse sidebar"
+              title="Collapse sidebar"
+              className="grid h-7 w-7 shrink-0 cursor-pointer place-items-center rounded-lg hover:bg-[#f3f4f7]"
+            >
+              <ArrowLeftToLine size={16} style={{ color: "var(--ink-muted)" }} />
+            </button>
+          </>
         )}
       </div>
 

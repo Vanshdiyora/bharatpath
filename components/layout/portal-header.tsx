@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Armchair,
   Bell,
   ChevronRight,
   FlaskConical,
@@ -12,99 +13,269 @@ import { PORTAL_TYPES, PortalType } from "@/config/portal";
 import { useHeaderContent } from "./header-context";
 
 const PORTAL_BADGE_LABEL: Record<PortalType, string> = {
-  [PORTAL_TYPES.COLLEGE]: "College · Demo state",
-  [PORTAL_TYPES.STUDENT]: "Student · Demo state",
-  [PORTAL_TYPES.EMPLOYER]: "Employer · Demo state",
-  [PORTAL_TYPES.ADMIN]: "Admin · Demo state",
+  [PORTAL_TYPES.COLLEGE]: "DEMO STATE",
+  [PORTAL_TYPES.STUDENT]: "DEMO STATE",
+  [PORTAL_TYPES.EMPLOYER]: "DEMO STATE",
+  [PORTAL_TYPES.ADMIN]: "DEMO STATE",
 };
 
 export function PortalHeader() {
-  const { title, subtitle, badge, stat } =
-    useHeaderContent();
+  const { title, subtitle, badge, stat } = useHeaderContent();
+
   const portal = useAppSelector(selectPortal);
 
   const resolvedBadge = badge ?? {
     icon: FlaskConical,
     label: portal
       ? PORTAL_BADGE_LABEL[portal]
-      : "Demo state",
+      : "DEMO STATE",
   };
 
   return (
-    <header className="flex min-h-[72px] shrink-0 items-center justify-between gap-4 border-b border-[#e7e9ee] bg-white px-5 py-3 lg:px-7">
-      <div className="min-w-0">
-        <h1 className="truncate text-[22px] font-semibold text-[#151b2b]">
+    <header
+      className="
+        flex
+        min-h-[64px]
+        shrink-0
+        items-center
+        gap-[8px]
+        border-b
+        border-[#e7e9ee]
+        bg-white
+        px-[16px]
+        py-[10px]
+      "
+      style={{
+        fontFamily: "'General Sans', sans-serif",
+      }}
+    >
+      {/* TITLE + SUBTITLE */}
+      <div
+        className="
+          flex
+          min-w-0
+          flex-1
+          flex-col
+          gap-[4px]
+        "
+      >
+        <h1
+          className="
+            m-0
+            truncate
+            text-[18px]
+            leading-[23px]
+            font-[700]
+            tracking-[-0.01em]
+            text-[#151b2b]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 700,
+          }}
+        >
           {title}
         </h1>
 
-        <p className="mt-1 truncate text-[13px] text-[#777f90]">
+        <span
+          className="
+            truncate
+            whitespace-nowrap
+            text-[12px]
+            leading-[17px]
+            font-[400]
+            text-[#777f90]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 400,
+          }}
+        >
           {subtitle}
-        </p>
+        </span>
       </div>
 
-      <div className="flex shrink-0 items-center gap-3">
-        <div className="hidden items-center gap-1.5 text-[13px] font-medium text-[#4f5666] sm:flex">
-          {resolvedBadge.icon && (
-            <resolvedBadge.icon size={15} />
-          )}
-          {resolvedBadge.label}
-        </div>
-
-        {stat && (
-          <button
-            type="button"
-            className="hidden items-center gap-3 rounded-lg border border-[#e5e7ec] bg-white px-3 py-2 sm:flex"
-          >
-            {stat.icon && (
-              <stat.icon
-                size={15}
-                className="text-[#5b4fcf]"
-              />
-            )}
-
-            <div className="text-left">
-              <div className="text-xs font-semibold text-[#303747]">
-                {stat.label}
-              </div>
-
-              {stat.sublabel && (
-                <div className="mt-0.5 text-[11px] text-[#8a91a0]">
-                  {stat.sublabel}
-                </div>
-              )}
-
-              {typeof stat.progress === "number" && (
-                <div className="mt-1.5 h-1 w-20 overflow-hidden rounded-full bg-[#f0f1f4]">
-                  <div
-                    className="h-full rounded-full bg-[#5b4fcf]"
-                    style={{
-                      width: `${Math.min(
-                        100,
-                        Math.max(0, stat.progress),
-                      )}%`,
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-
-            <ChevronRight
-              size={14}
-              className="text-[#8a91a0]"
-            />
-          </button>
+      {/* DEMO STATE */}
+      <button
+        type="button"
+        className="
+          hidden
+          shrink-0
+          items-center
+          gap-[6px]
+          rounded-[8px]
+          px-[12px]
+          py-[7px]
+          text-[#777f90]
+          sm:flex
+        "
+        style={{
+          fontFamily: "'General Sans', sans-serif",
+        }}
+      >
+        {resolvedBadge.icon && (
+          <resolvedBadge.icon
+            size={14}
+            strokeWidth={2}
+          />
         )}
 
+        <span
+          className="
+            text-[11px]
+            leading-[14px]
+            font-[600]
+            tracking-[0.04em]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+            fontWeight: 600,
+          }}
+        >
+          {resolvedBadge.label}
+        </span>
+      </button>
+
+      {/* SEATS */}
+      {stat && (
         <button
           type="button"
-          className="relative rounded-lg border border-[#e5e7ec] p-2 text-[#777f90] hover:bg-[#f5f6f8]"
-          aria-label="Notifications"
+          aria-label="Seats used — open billing"
+          title={`${stat.label} — open Seats & payment to add more before you run out`}
+          className="
+            flex
+            h-[36px]
+            shrink-0
+            items-center
+            gap-[10px]
+            rounded-[10px]
+            border
+            border-[#e5e7ec]
+            bg-white
+            px-[10px]
+            pl-[6px]
+          "
+          style={{
+            fontFamily: "'General Sans', sans-serif",
+          }}
         >
-          <Bell size={17} />
+          {/* ARMCHAIR */}
+          <span
+            className="
+              grid
+              h-[24px]
+              w-[24px]
+              shrink-0
+              place-items-center
+              rounded-[8px]
+              bg-[#edf2fa]
+            "
+          >
+            <Armchair
+              size={14}
+              strokeWidth={2}
+              className="text-[#5b4fcf]"
+            />
+          </span>
 
-          <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#e5484d]" />
+          {/* LABEL + PROGRESS */}
+          <span
+            className="
+              flex
+              flex-col
+              gap-[2px]
+            "
+          >
+            <span
+              className="
+                whitespace-nowrap
+                text-[12px]
+                leading-[16px]
+                font-[600]
+                text-[#303747]
+              "
+              style={{
+                fontFamily: "'General Sans', sans-serif",
+                fontWeight: 600,
+              }}
+            >
+              {stat.label}
+            </span>
+
+            {typeof stat.progress === "number" && (
+              <span
+                className="
+                  block
+                  h-[4px]
+                  w-[88px]
+                  overflow-hidden
+                  rounded-full
+                  bg-[#e7e9ee]
+                "
+              >
+                <span
+                  className="
+                    block
+                    h-full
+                    rounded-full
+                    bg-[#5b4fcf]
+                  "
+                  style={{
+                    width: `${Math.min(
+                      100,
+                      Math.max(0, stat.progress),
+                    )}%`,
+                  }}
+                />
+              </span>
+            )}
+          </span>
+
+          {/* CHEVRON */}
+          <ChevronRight
+            size={12}
+            strokeWidth={2}
+            className="shrink-0 text-[#5d6673]"
+          />
         </button>
-      </div>
+      )}
+
+      {/* NOTIFICATION */}
+      <button
+        type="button"
+        aria-label="Notifications"
+        className="
+          relative
+          flex
+          h-[36px]
+          w-[36px]
+          shrink-0
+          items-center
+          justify-center
+          rounded-[10px]
+          border
+          border-[#e5e7ec]
+          bg-white
+          text-[#777f90]
+        "
+      >
+        <Bell
+          size={17}
+          strokeWidth={1.8}
+        />
+
+        <span
+          className="
+            absolute
+            right-[6px]
+            top-[6px]
+            h-[6px]
+            w-[6px]
+            rounded-full
+            bg-[#c62828]
+          "
+        />
+      </button>
     </header>
   );
 }
