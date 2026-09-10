@@ -14,8 +14,8 @@ import {
 
 import { usePageHeader } from "@/components/layout/header-context";
 import { CollegeDashboard as DashboardData } from "../types";
-import { MetricCard } from "./metric-card";
-import { RecentActivityList } from "./recent-activity";
+import { MetricCard } from "../../../../components/common/dashboard/metric-card";
+import { RecentActivityList } from "../../../../components/common/dashboard/recent-activity";
 import { ScoreDistribution } from "./score-distribution";
 
 export function CollegeDashboard({

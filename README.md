@@ -6,16 +6,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 bharatpath/
 ├─ .git/
 ├─ .gitignore
+├─ .next/
 ├─ AGENTS.md
 ├─ CLAUDE.md
 ├─ README.md
 ├─ eslint.config.mjs
 ├─ middleware.ts
+├─ next-env.d.ts
 ├─ next.config.ts
-├─ package.json
 ├─ package-lock.json
+├─ package.json
 ├─ postcss.config.mjs
 ├─ tsconfig.json
+├─ node_modules/
 │
 ├─ app/
 │  ├─ globals.css
@@ -23,10 +26,10 @@ bharatpath/
 │  ├─ page.tsx
 │  │
 │  ├─ college/
-│  │  ├─ layout.tsx
-│  │  ├─ page.tsx
 │  │  ├─ analytics/
 │  │  │  └─ page.tsx
+│  │  ├─ layout.tsx
+│  │  ├─ page.tsx
 │  │  ├─ settings/
 │  │  │  └─ page.tsx
 │  │  └─ students/
@@ -45,6 +48,11 @@ bharatpath/
 ├─ components/
 │  ├─ auth/
 │  │  └─ login-form.tsx
+│  │
+│  ├─ common/
+│  │  └─ dashboard/
+│  │     ├─ metric-card.tsx
+│  │     └─ recent-activity.tsx
 │  │
 │  ├─ layout/
 │  │  ├─ header-context.tsx
@@ -142,6 +150,20 @@ bharatpath/
 │  │     │  └─ students.service.ts
 │  │     └─ types.ts
 │  │
+│  ├─ employer/
+│  │  ├─ dashboard/
+│  │  │  ├─ components/
+│  │  │  │  ├─ employer-dashboard.tsx
+│  │  │  │  ├─ metric-card.tsx
+│  │  │  │  ├─ recent-activity.tsx
+│  │  │  │  └─ score-distribution.tsx
+│  │  │  ├─ hooks/
+│  │  │  │  └─ use-dashboard.ts
+│  │  │  ├─ services/
+│  │  │  │  └─ dashboard.service.ts
+│  │  │  └─ types.ts
+│  │  └─ ...
+│  │
 │  └─ notifications/
 │     ├─ api/
 │     │  └─ notification-api.ts
@@ -179,20 +201,28 @@ bharatpath/
 │  ├─ api/
 │  │  ├─ base-api.ts
 │  │  └─ notification-api.ts
+│  │
+│  ├─ college/
+│  │  ├─ analytics/
+│  │  ├─ dashboard/
+│  │  ├─ settings/
+│  │  └─ students/
+│  │
+│  ├─ common/
+│  │  ├─ selectors/
+│  │  │  ├─ auth.selectors.ts
+│  │  │  ├─ notification-selectors.ts
+│  │  │  ├─ tenant.selectors.ts
+│  │  │  └─ ui.selectors.ts
+│  │  └─ slices/
+│  │     ├─ auth.slice.ts
+│  │     ├─ notification-slice.ts
+│  │     ├─ tenant.slice.ts
+│  │     └─ ui.slice.ts
+│  │
 │  ├─ hooks.ts
 │  ├─ index.ts
-│  ├─ provider.tsx
-│  ├─ selectors/
-│  │  ├─ auth.selectors.ts
-│  │  ├─ notification-selectors.ts
-│  │  ├─ tenant.selectors.ts
-│  │  └─ ui.selectors.ts
-│  ├─ slices/
-│  │  ├─ auth.slice.ts
-│  │  ├─ notification-slice.ts
-│  │  ├─ tenant.slice.ts
-│  │  └─ ui.slice.ts
-│  └─ ...
+│  └─ provider.tsx
 │
 └─ types/
    └─ common.ts

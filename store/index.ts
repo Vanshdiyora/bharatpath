@@ -7,28 +7,68 @@ import notificationUIReducer from "./common/slices/notification-slice";
 
 import { baseApi } from "./api/base-api";
 import { notificationApi } from "./api/notification-api";
+
 import collegeSettingsReducer from "./college/settings/college-settings.slice";
+
+import employerBillingReducer from "./employer/billing/billing.slice";
+import {
+  employerApplicationsReducer,
+} from "@/store/employer/applications";
+import employerSettingsReducer from "./employer/settings/settings-slice";
 
 export const store = configureStore({
   reducer: {
     /*
-     * Application state
+     * ==========================================
+     * COMMON APPLICATION STATE
+     * ==========================================
      */
+
     auth: authReducer,
     tenant: tenantReducer,
     ui: uiReducer,
 
     /*
-     * Notification UI state
+     * ==========================================
+     * NOTIFICATION UI STATE
      *
      * Controls whether the notification
      * dropdown is open or closed.
+     * ==========================================
      */
+
     notificationUI: notificationUIReducer,
-    collegeSettings: collegeSettingsReducer,
+    employerApplications: employerApplicationsReducer,
+    employerSettings: employerSettingsReducer,
     /*
-     * RTK Query APIs
+     * ==========================================
+     * COLLEGE PORTAL STATE
+     * ==========================================
      */
+
+    collegeSettings: collegeSettingsReducer,
+
+    /*
+     * ==========================================
+     * EMPLOYER PORTAL STATE
+     *
+     * Billing-related state for the Employer
+     * portal, including:
+     *
+     * - Credit balance
+     * - Credit packages
+     * - Selected credit package
+     * ==========================================
+     */
+
+    employerBilling: employerBillingReducer,
+
+    /*
+     * ==========================================
+     * RTK QUERY APIs
+     * ==========================================
+     */
+
     [baseApi.reducerPath]:
       baseApi.reducer,
 
@@ -54,21 +94,30 @@ export const store = configureStore({
 });
 
 /*
- * Root Redux state
+ * ==========================================
+ * ROOT REDUX STATE
+ * ==========================================
  */
+
 export type RootState =
   ReturnType<typeof store.getState>;
 
 /*
- * Redux dispatch
+ * ==========================================
+ * REDUX DISPATCH
+ * ==========================================
  */
+
 export type AppDispatch =
   typeof store.dispatch;
 
 /*
- * Redux store
+ * ==========================================
+ * REDUX STORE
  *
  * Required by useAppStore()
+ * ==========================================
  */
+
 export type AppStore =
   typeof store;

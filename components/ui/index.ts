@@ -11,3 +11,10 @@ export * from "./stat-card";
 export * from "./bar-chart";
 export * from "./progress-list";
 export * from "./status-badge";
+export {
+  Dropdown,
+} from "./dropdown";
+
+export type {
+  DropdownOption,
+} from "./dropdown";
