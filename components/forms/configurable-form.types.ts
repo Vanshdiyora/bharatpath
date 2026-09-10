@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+export type FormValues = object;
+
 export type FormErrors<TValues> = Partial<
   Record<keyof TValues & string, string>
 >;
