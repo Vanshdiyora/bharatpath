@@ -24,7 +24,7 @@ export function AdminDashboard() {
   const router = useRouter();
 
   usePageHeader(
-    "Operations",
+    "Operations dashboard",
     "Monitor verification, integrity and platform activity from one place.",
   );
 

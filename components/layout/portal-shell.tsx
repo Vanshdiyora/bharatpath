@@ -11,11 +11,15 @@ import { HeaderProvider } from "./header-context";
 interface PortalShellProps {
   children: ReactNode;
   portal: "college" | "employer" | "student" | "admin";
+  demoPanel?: ReactNode;
+  onDemoStateClick?: () => void;
 }
 
 export function PortalShell({
   children,
   portal,
+  demoPanel,
+  onDemoStateClick,
 }: PortalShellProps) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
@@ -39,30 +43,40 @@ export function PortalShell({
   const isDisputesPage = pathname.startsWith(
     `/${portal}/disputes`,
   );
+
   return (
     <HeaderProvider>
-      <div className="flex h-screen w-full overflow-hidden bg-[#f8f9fb]">
-
+      <div className="flex h-full min-h-0 overflow-hidden bg-[#f8f9fb]">
         {/* =================================================
             SIDEBAR
             ================================================= */}
         <PortalSidebar
           portal={portal}
           collapsed={collapsed}
-          onToggle={() =>
-            setCollapsed((value) => !value)
-          }
+          onToggle={() => setCollapsed((value) => !value)}
         />
 
         {/* =================================================
             MAIN CONTENT AREA
             ================================================= */}
         <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          {/* =================================================
+              HEADER
+              ================================================= */}
+          <PortalHeader
+            portal={portal}
+            onDemoStateClick={onDemoStateClick}
+          />
 
-          {/* Header */}
-          <PortalHeader portal={portal} />
+          {/* =================================================
+              DEMO STATE PANEL
+              Appears directly below the header
+              ================================================= */}
+          {demoPanel}
 
-          {/* Mobile Navigation */}
+          {/* =================================================
+              MOBILE NAVIGATION
+              ================================================= */}
           <PortalMobileNav portal={portal} />
 
           {/* =================================================
@@ -70,13 +84,16 @@ export function PortalShell({
               ================================================= */}
           <main
             className={[
-              "min-h-0 min-w-0 flex-1 overflow-hidden overflow-x-hidden bp-scrollbar",
+              "min-h-0 min-w-0 flex-1 overflow-x-hidden bp-scrollbar",
 
               isCandidatesPage
-                ? "p-0"
-                : isSettingsPage || isQueuePage || isUsersPage || isDisputesPage
-                  ? "px-4 py-0 overflow-y-auto"
-                  : "p-4 overflow-y-auto",
+                ? "overflow-hidden p-0"
+                : isSettingsPage ||
+                    isQueuePage ||
+                    isUsersPage ||
+                    isDisputesPage
+                  ? "overflow-y-auto px-4 py-0"
+                  : "overflow-y-auto p-4",
             ].join(" ")}
           >
             {children}
