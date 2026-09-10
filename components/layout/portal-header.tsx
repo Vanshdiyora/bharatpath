@@ -138,11 +138,8 @@ export function PortalHeader({
    */
 
   const isEmployerJobsPage =
-    isEmployer &&
-    (
-      pathname === "/employer/jobs" ||
-      pathname.startsWith("/employer/jobs/")
-    );
+  isEmployer &&
+  pathname === "/employer/jobs";
 
   /*
    * ==========================================

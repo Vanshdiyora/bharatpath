@@ -1,12 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BharatPath
+
+A Next.js application for BharatPath, structured around role-based portals for college and employer workflows.
 
 ## Project Structure
 
 ```text
 bharatpath/
-├─ .git/
 ├─ .gitignore
-├─ .next/
 ├─ AGENTS.md
 ├─ CLAUDE.md
 ├─ README.md
@@ -18,12 +18,14 @@ bharatpath/
 ├─ package.json
 ├─ postcss.config.mjs
 ├─ tsconfig.json
-├─ node_modules/
 │
 ├─ app/
 │  ├─ globals.css
 │  ├─ layout.tsx
 │  ├─ page.tsx
+│  │
+│  ├─ login/
+│  │  └─ page.tsx
 │  │
 │  ├─ college/
 │  │  ├─ analytics/
@@ -35,8 +37,19 @@ bharatpath/
 │  │  └─ students/
 │  │     └─ page.tsx
 │  │
-│  └─ login/
-│     └─ page.tsx
+│  └─ employer/
+│     ├─ applications/
+│     │  └─ page.tsx
+│     ├─ candidates/
+│     │  └─ page.tsx
+│     ├─ dashboard/
+│     │  └─ page.tsx
+│     ├─ jobs/
+│     │  └─ page.tsx
+│     ├─ layout.tsx
+│     ├─ page.tsx
+│     └─ settings/
+│        └─ page.tsx
 │
 ├─ assets/
 │  └─ fonts/
@@ -62,9 +75,11 @@ bharatpath/
 │  │  └─ portal-sidebar.tsx
 │  │
 │  └─ ui/
+│     ├─ app-select.tsx
 │     ├─ avatar.tsx
 │     ├─ bar-chart.tsx
 │     ├─ button.tsx
+│     ├─ dropdown.tsx
 │     ├─ filter-pills.tsx
 │     ├─ index.ts
 │     ├─ link-state-badge.tsx
@@ -76,12 +91,15 @@ bharatpath/
 │     ├─ stat-card.tsx
 │     ├─ status-badge.tsx
 │     ├─ table.tsx
-│     └─ ...
+│     └─ tooltip.tsx
 │
 ├─ config/
 │  ├─ api.ts
 │  ├─ navigation.ts
-│  └─ portal.ts
+│  ├─ portal.ts
+│  └─ employer/
+│     ├─ constants.ts
+│     └─ navigation.ts
 │
 ├─ features/
 │  ├─ auth/
@@ -108,8 +126,6 @@ bharatpath/
 │  │  ├─ dashboard/
 │  │  │  ├─ components/
 │  │  │  │  ├─ college-dashboard.tsx
-│  │  │  │  ├─ metric-card.tsx
-│  │  │  │  ├─ recent-activity.tsx
 │  │  │  │  └─ score-distribution.tsx
 │  │  │  ├─ hooks/
 │  │  │  │  └─ use-dashboard.ts
@@ -122,7 +138,8 @@ bharatpath/
 │  │  │  │  ├─ billing.tsx
 │  │  │  │  ├─ college-profile.tsx
 │  │  │  │  ├─ college-settings.tsx
-│  │  │  │  └─ college-users.tsx
+│  │  │  │  ├─ college-users.tsx
+│  │  │  │  └─ index.ts
 │  │  │  ├─ hooks/
 │  │  │  │  └─ use-settings.ts
 │  │  │  ├─ services/
@@ -151,18 +168,74 @@ bharatpath/
 │  │     └─ types.ts
 │  │
 │  ├─ employer/
+│  │  ├─ applications/
+│  │  │  ├─ components/
+│  │  │  │  ├─ application-card.tsx
+│  │  │  │  ├─ application-column.tsx
+│  │  │  │  ├─ application-drawer.tsx
+│  │  │  │  ├─ application-filter.tsx
+│  │  │  │  ├─ application-pipeline.tsx
+│  │  │  │  └─ applications-page-content.tsx
+│  │  │  ├─ hooks/
+│  │  │  │  └─ use-applications-page.ts
+│  │  │  ├─ data.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ types.ts
+│  │  │
+│  │  ├─ billing/
+│  │  │  ├─ components/
+│  │  │  │  ├─ buy-credits-modal.tsx
+│  │  │  │  └─ credits-button.tsx
+│  │  │  ├─ types.ts
+│  │  │  └─ index.ts
+│  │  │
+│  │  ├─ candidates/
+│  │  │  ├─ candidate-card.tsx
+│  │  │  ├─ candidate-filters.tsx
+│  │  │  ├─ candidate-unlock-dialog.tsx
+│  │  │  ├─ candidates-page.tsx
+│  │  │  ├─ data.ts
+│  │  │  ├─ README.md
+│  │  │  └─ types.ts
+│  │  │
 │  │  ├─ dashboard/
 │  │  │  ├─ components/
+│  │  │  │  ├─ dashboard-stats.tsx
 │  │  │  │  ├─ employer-dashboard.tsx
-│  │  │  │  ├─ metric-card.tsx
-│  │  │  │  ├─ recent-activity.tsx
-│  │  │  │  └─ score-distribution.tsx
+│  │  │  │  ├─ employer-recent-activity.tsx
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ quick-actions.tsx
+│  │  │  │  └─ top-jobs.tsx
 │  │  │  ├─ hooks/
 │  │  │  │  └─ use-dashboard.ts
 │  │  │  ├─ services/
 │  │  │  │  └─ dashboard.service.ts
 │  │  │  └─ types.ts
-│  │  └─ ...
+│  │  │
+│  │  ├─ jobs/
+│  │  │  ├─ components/
+│  │  │  │  ├─ index.ts
+│  │  │  │  ├─ jobs-page.tsx
+│  │  │  │  └─ jobs-table.tsx
+│  │  │  ├─ data/
+│  │  │  │  └─ jobs.data.ts
+│  │  │  ├─ index.ts
+│  │  │  └─ types.ts
+│  │  │
+│  │  └─ settings/
+│  │     ├─ components/
+│  │     │  ├─ account-tab.tsx
+│  │     │  ├─ add-payment-method-modal.tsx
+│  │     │  ├─ buy-credits-modal.tsx
+│  │     │  ├─ company-tab.tsx
+│  │     │  ├─ invite-member-modal.tsx
+│  │     │  ├─ invoices-tab.tsx
+│  │     │  ├─ payment-tab.tsx
+│  │     │  ├─ settings-page.tsx
+│  │     │  ├─ settings-tabs.tsx
+│  │     │  ├─ subscription-tab.tsx
+│  │     │  └─ team-tab.tsx
+│  │     └─ index.ts
 │  │
 │  └─ notifications/
 │     ├─ api/
@@ -173,9 +246,8 @@ bharatpath/
 │     │  └─ notification-dropdown.tsx
 │     ├─ index.ts
 │     ├─ mock-notifications.ts
-│     ├─ types/
-│     │  └─ notification.types.ts
-│     └─ ...
+│     └─ types/
+│        └─ notification.types.ts
 │
 ├─ lib/
 │  ├─ api/
@@ -202,12 +274,6 @@ bharatpath/
 │  │  ├─ base-api.ts
 │  │  └─ notification-api.ts
 │  │
-│  ├─ college/
-│  │  ├─ analytics/
-│  │  ├─ dashboard/
-│  │  ├─ settings/
-│  │  └─ students/
-│  │
 │  ├─ common/
 │  │  ├─ selectors/
 │  │  │  ├─ auth.selectors.ts
@@ -220,45 +286,70 @@ bharatpath/
 │  │     ├─ tenant.slice.ts
 │  │     └─ ui.slice.ts
 │  │
+│  ├─ college/
+│  │  ├─ analytics/
+│  │  ├─ dashboard/
+│  │  ├─ settings/
+│  │  └─ students/
+│  │
+│  ├─ employer/
+│  │  ├─ applications/
+│  │  ├─ billing/
+│  │  ├─ candidates/
+│  │  ├─ dashboard/
+│  │  ├─ index.ts
+│  │  ├─ jobs/
+│  │  └─ settings/
+│  │
 │  ├─ hooks.ts
 │  ├─ index.ts
 │  └─ provider.tsx
 │
-└─ types/
-   └─ common.ts
+├─ types/
+│  ├─ common.ts
+│  └─ employer/
+│     ├─ application.ts
+│     ├─ billing.ts
+│     ├─ candidate.ts
+│     ├─ dashboard.ts
+│     └─ job.ts
+│
+└─ package.json
 ```
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open your browser at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev     # start Next.js dev server
+npm run build   # create production build
+npm run start   # run production server
+npm run lint    # run ESLint checks
+```
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Redux Toolkit
+- React Query
+- Zod + React Hook Form
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is organized into portal-specific feature modules for college and employer flows, with shared UI, config, API, and state-management layers.
