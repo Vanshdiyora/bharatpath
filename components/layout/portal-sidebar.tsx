@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import {
+  adminNavigation,
   collegeNavigation,
   employerNavigation,
 } from "@/config/navigation";
@@ -59,7 +60,7 @@ import {
 interface PortalSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
-  portal: "college" | "employer" | "student";
+  portal: "college" | "employer" | "student" | "admin";
 }
 
 export function PortalSidebar({
@@ -116,7 +117,9 @@ export function PortalSidebar({
   const navigation =
     portal === "employer"
       ? employerNavigation
-      : collegeNavigation;
+      : portal === "admin"
+        ? adminNavigation
+        : collegeNavigation;
 
   /*
    * ============================================================
@@ -127,6 +130,8 @@ export function PortalSidebar({
   const basePath =
     portal === "employer"
       ? "/employer"
+      : portal === "admin"
+        ? "/admin/dashboard"
       : portal === "student"
         ? "/student"
         : "/college";
@@ -140,6 +145,8 @@ export function PortalSidebar({
   const portalLabel =
     portal === "employer"
       ? "EMPLOYER"
+      : portal === "admin"
+        ? "ADMIN"
       : portal === "student"
         ? "STUDENT"
         : "COLLEGE";
@@ -374,7 +381,7 @@ export function PortalSidebar({
 
             let href: string;
 
-            if (portal === "employer") {
+            if (portal === "employer" || portal === "admin") {
               /*
                * Employer navigation already contains
                * /employer/... paths.
@@ -408,7 +415,9 @@ export function PortalSidebar({
             const isDashboard =
               portal === "employer"
                 ? item.href === "/employer"
-                : item.href === "/";
+                : portal === "admin"
+                  ? item.href === "/admin/dashboard"
+                  : item.href === "/";
 
             const active = isDashboard
               ? pathname === href

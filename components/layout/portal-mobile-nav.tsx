@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
+  adminNavigation,
   collegeNavigation,
   employerNavigation,
 } from "@/config/navigation";
 
 interface PortalMobileNavProps {
-  portal: "college" | "employer" | "student";
+  portal: "college" | "employer" | "student" | "admin";
 }
 
 export function PortalMobileNav({
@@ -30,7 +31,9 @@ export function PortalMobileNav({
   const navigation =
     portal === "employer"
       ? employerNavigation
-      : collegeNavigation;
+      : portal === "admin"
+        ? adminNavigation
+        : collegeNavigation;
 
   /*
    * ==========================================
@@ -41,6 +44,8 @@ export function PortalMobileNav({
   const basePath =
     portal === "employer"
       ? "/employer"
+      : portal === "admin"
+        ? "/admin"
       : portal === "student"
         ? "/student"
         : "/college";
@@ -56,7 +61,7 @@ export function PortalMobileNav({
            */
 
           const href =
-            portal === "employer"
+            portal === "employer" || portal === "admin"
               ? item.href
               : item.href === "/"
                 ? basePath
@@ -74,6 +79,8 @@ export function PortalMobileNav({
           const isDashboard =
             portal === "employer"
               ? item.href === "/employer"
+              : portal === "admin"
+                ? item.href === "/admin/dashboard"
               : item.href === "/";
 
           const active = isDashboard

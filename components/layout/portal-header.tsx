@@ -34,7 +34,7 @@ import { BuyCreditsModal } from "@/features/employer/billing/components/buy-cred
 import { useHeaderContent } from "./header-context";
 
 interface PortalHeaderProps {
-  portal: "college" | "employer" | "student";
+  portal: "college" | "employer" | "student" | "admin";
 }
 
 const PORTAL_BADGE_LABEL: Record<PortalType, string> = {

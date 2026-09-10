@@ -10,7 +10,7 @@ import { HeaderProvider } from "./header-context";
 
 interface PortalShellProps {
   children: ReactNode;
-  portal: "college" | "employer" | "student";
+  portal: "college" | "employer" | "student" | "admin";
 }
 
 export function PortalShell({
@@ -28,6 +28,17 @@ export function PortalShell({
     `/${portal}/candidates`,
   );
 
+  const isQueuePage = pathname.startsWith(
+    `/${portal}/queue`,
+  );
+
+  const isUsersPage = pathname.startsWith(
+    `/${portal}/users`,
+  );
+
+  const isDisputesPage = pathname.startsWith(
+    `/${portal}/disputes`,
+  );
   return (
     <HeaderProvider>
       <div className="flex h-screen w-full overflow-hidden bg-[#f8f9fb]">
@@ -56,12 +67,6 @@ export function PortalShell({
 
           {/* =================================================
               PAGE CONTENT
-
-              Candidates gets ZERO outer padding because
-              CandidatesPage handles its own layout.
-
-              Settings keeps its existing behavior.
-              All other pages keep p-4.
               ================================================= */}
           <main
             className={[
@@ -69,7 +74,7 @@ export function PortalShell({
 
               isCandidatesPage
                 ? "p-0"
-                : isSettingsPage
+                : isSettingsPage || isQueuePage || isUsersPage || isDisputesPage
                   ? "px-4 py-0 overflow-y-auto"
                   : "p-4 overflow-y-auto",
             ].join(" ")}

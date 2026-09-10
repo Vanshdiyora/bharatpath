@@ -5,6 +5,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { LucideIcon } from "lucide-react";
@@ -40,7 +41,7 @@ const HeaderContext =
 export function HeaderProvider({
   children,
 }: {
-  children: ReactNode;
+  readonly children: ReactNode;
 }) {
   const [content, setContent] =
     useState<HeaderContent>({
@@ -48,13 +49,16 @@ export function HeaderProvider({
       subtitle: "",
     });
 
+  const value = useMemo(
+    () => ({
+      ...content,
+      setHeader: setContent,
+    }),
+    [content],
+  );
+
   return (
-    <HeaderContext.Provider
-      value={{
-        ...content,
-        setHeader: setContent,
-      }}
-    >
+    <HeaderContext.Provider value={value}>
       {children}
     </HeaderContext.Provider>
   );

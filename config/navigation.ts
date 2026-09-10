@@ -7,8 +7,11 @@ import {
   Grid2X2,
   UserRoundSearch,
   ClipboardList,
+  ShieldCheck,
+  LayoutDashboard,
+  Gavel,
 } from "lucide-react";
-
+import type { LucideIcon } from "lucide-react";
 export const employerNavigation = [
   {
     key: "dashboard",
@@ -68,3 +71,38 @@ export const collegeNavigation = [
     icon: Settings,
   },
 ] as const;
+
+export const adminNavigation = [
+  {
+    key: "operations",
+    label: "Operations",
+    href: "/admin/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    key: "kyb-integrity",
+    label: "KYB & Integrity",
+    href: "/admin/queue",
+    icon: ShieldCheck,
+    badge: 10,
+  },
+  {
+    key: "users",
+    label: "Users",
+    href: "/admin/users",
+    icon: Users,
+  },
+  {
+    key: "disputes-audit",
+    label: "Disputes & Audit",
+    href: "/admin/disputes",
+    icon: Gavel,
+    badge: 3,
+  },
+  {
+    key: "settings",
+    label: "Settings",
+    href: "/admin/settings",
+    icon: Settings,
+  },
+];

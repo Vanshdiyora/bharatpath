@@ -4,6 +4,9 @@ A Next.js application for BharatPath, structured around role-based portals for c
 
 ## Project Structure
 
+The structure below reflects the complete application source tree. Generated
+folders such as `node_modules/` and `.next/` are intentionally omitted.
+
 ```text
 bharatpath/
 ├─ .gitignore
@@ -27,13 +30,29 @@ bharatpath/
 │  ├─ login/
 │  │  └─ page.tsx
 │  │
-│  ├─ college/
-│  │  ├─ analytics/
+│  ├─ admin/
+│  │  ├─ dashboard/
+│  │  │  └─ page.tsx
+│  │  ├─ disputes/
 │  │  │  └─ page.tsx
 │  │  ├─ layout.tsx
-│  │  ├─ page.tsx
-│  │  ├─ settings/
+│  │  ├─ login/
 │  │  │  └─ page.tsx
+│  │  ├─ page.tsx
+│  │  └─ types.ts
+│  │  │  └─ page.tsx
+│  │  │  └─ create/
+│  │  │     ├─ components/
+│  │  │     │  ├─ job-create-page.tsx
+│  │  │     │  └─ job-skills-field.tsx
+│  │  │     ├─ data/
+│  │  │     │  └─ skills.data.ts
+│  │  │     ├─ hooks/
+│  │  │     │  └─ use-job-create-form.ts
+│  │  │     ├─ index.ts
+│  │  │     ├─ schemas/
+│  │  │     │  └─ job.schema.ts
+│  │  │     └─ types.ts
 │  │  └─ students/
 │  │     └─ page.tsx
 │  │
@@ -45,6 +64,8 @@ bharatpath/
 │     ├─ dashboard/
 │     │  └─ page.tsx
 │     ├─ jobs/
+│     │  ├─ create/
+│     │  │  └─ page.tsx
 │     │  └─ page.tsx
 │     ├─ layout.tsx
 │     ├─ page.tsx
@@ -66,6 +87,11 @@ bharatpath/
 │  │  └─ dashboard/
 │  │     ├─ metric-card.tsx
 │  │     └─ recent-activity.tsx
+│  │
+│  ├─ forms/
+│  │  ├─ configurable-form.types.ts
+│  │  ├─ configurable-form.tsx
+│  │  └─ index.ts
 │  │
 │  ├─ layout/
 │  │  ├─ header-context.tsx
@@ -94,6 +120,9 @@ bharatpath/
 │     └─ tooltip.tsx
 │
 ├─ config/
+│  ├─ admin/
+│  │  ├─ constants.ts
+│  │  └─ navigation.ts
 │  ├─ api.ts
 │  ├─ navigation.ts
 │  ├─ portal.ts
@@ -102,6 +131,37 @@ bharatpath/
 │     └─ navigation.ts
 │
 ├─ features/
+│  ├─ admin/
+│  │  ├─ auth/
+│  │  │  ├─ index.ts
+│  │  │  ├─ login-page.tsx
+│  │  │  └─ login.schema.ts
+│  │  ├─ dashboard/
+│  │  │  ├─ dashboard-page.tsx
+│  │  │  └─ index.ts
+│  │  ├─ disputes/
+│  │  │  ├─ disputes-page.tsx
+│  │  │  └─ index.ts
+│  │  ├─ index.ts
+│  │  ├─ queue/
+│  │  │  ├─ index.ts
+│  │  │  ├─ queue-drawer.tsx
+│  │  │  └─ queue-page.tsx
+│  │  ├─ settings/
+│  │  │  ├─ index.ts
+│  │  │  └─ settings-page.tsx
+│  │  ├─ shared/
+│  │  │  ├─ admin-shell.tsx
+│  │  │  ├─ admin.service.ts
+│  │  │  ├─ data.ts
+│  │  │  ├─ index.ts
+│  │  │  ├─ metric-card.tsx
+│  │  │  ├─ status-badge.tsx
+│  │  │  └─ use-admin.ts
+│  │  └─ users/
+│  │     ├─ index.ts
+│  │     └─ users-page.tsx
+│  │
 │  ├─ auth/
 │  │  ├─ hooks/
 │  │  │  └─ use-auth.ts
@@ -220,7 +280,20 @@ bharatpath/
 │  │  │  ├─ data/
 │  │  │  │  └─ jobs.data.ts
 │  │  │  ├─ index.ts
-│  │  │  └─ types.ts
+│  │  │  ├─ types.ts
+│  │  │
+│  │  └─ create/
+│  │  │     ├─ components/
+│  │  │     │  ├─ job-create-page.tsx
+│  │  │     │  └─ job-skills-field.tsx
+│  │  │     ├─ data/
+│  │  │     │  └─ skills.data.ts
+│  │  │     ├─ hooks/
+│  │  │     │  └─ use-job-create-form.ts
+│  │  │     ├─ index.ts
+│  │  │     ├─ schemas/
+│  │  │     │  └─ job.schema.ts
+│  │  │     └─ types.ts
 │  │  │
 │  │  └─ settings/
 │  │     ├─ components/
@@ -286,20 +359,56 @@ bharatpath/
 │  │     ├─ tenant.slice.ts
 │  │     └─ ui.slice.ts
 │  │
-│  ├─ college/
-│  │  ├─ analytics/
+│  ├─ admin/
+│  │  ├─ auth/
+│  │  │  ├─ selectors.ts
+│  │  │  └─ slice.ts
 │  │  ├─ dashboard/
+│  │  │  ├─ selectors.ts
+│  │  │  └─ slice.ts
+│  │  ├─ disputes/
+│  │  │  ├─ selectors.ts
+│  │  │  └─ slice.ts
+│  │  ├─ index.ts
+│  │  ├─ queue/
+│  │  │  ├─ selectors.ts
+│  │  │  └─ slice.ts
 │  │  ├─ settings/
-│  │  └─ students/
+│  │  │  ├─ selectors.ts
+│  │  │  └─ slice.ts
+│  │  └─ users/
+│  │     ├─ selectors.ts
+│  │     └─ slice.ts
+│  │
+│  ├─ college/
+│  │  └─ settings/
+│  │     ├─ college-settings.selectors.ts
+│  │     └─ college-settings.slice.ts
 │  │
 │  ├─ employer/
 │  │  ├─ applications/
+│  │  │  ├─ applications.selectors.ts
+│  │  │  ├─ applications.slice.ts
+│  │  │  └─ index.ts
 │  │  ├─ billing/
+│  │  │  ├─ billing.selectors.ts
+│  │  │  ├─ billing.slice.ts
+│  │  │  └─ index.ts
 │  │  ├─ candidates/
+│  │  │  ├─ candidates.selectors.ts
+│  │  │  └─ candidates.slice.ts
 │  │  ├─ dashboard/
+│  │  │  ├─ dashboard.selectors.ts
+│  │  │  └─ dashboard.slice.ts
 │  │  ├─ index.ts
 │  │  ├─ jobs/
+│  │  │  ├─ jobs.selectors.ts
+│  │  │  └─ jobs.slice.ts
 │  │  └─ settings/
+│  │     ├─ index.ts
+│  │     ├─ selectors.ts
+│  │     ├─ settings-slice.ts
+│  │     └─ types.ts
 │  │
 │  ├─ hooks.ts
 │  ├─ index.ts
@@ -307,6 +416,8 @@ bharatpath/
 │
 ├─ types/
 │  ├─ common.ts
+│  ├─ admin/
+│  │  └─ index.ts
 │  └─ employer/
 │     ├─ application.ts
 │     ├─ billing.ts
@@ -314,7 +425,6 @@ bharatpath/
 │     ├─ dashboard.ts
 │     └─ job.ts
 │
-└─ package.json
 ```
 
 ## Getting Started

@@ -15,6 +15,7 @@ import {
   employerApplicationsReducer,
 } from "@/store/employer/applications";
 import employerSettingsReducer from "./employer/settings/settings-slice";
+import { adminReducer } from "./admin";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     auth: authReducer,
     tenant: tenantReducer,
     ui: uiReducer,
+    admin: adminReducer,
 
     /*
      * ==========================================
