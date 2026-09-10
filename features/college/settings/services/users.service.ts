@@ -1,55 +1,41 @@
-import { CollegeUser } from "../types";
+import { CollegeUser, UserRole } from "../types";
 
-/*
- * Temporary static data.
- *
- * The backend API is not available yet, so the
- * user list is served from this mock until it is.
- */
-const MOCK_USERS: CollegeUser[] = [
-  {
-    id: "user-1",
-    name: "Priya Nair",
-    email: "priya.nair@dit.example.edu",
-    role: "Owner",
-    status: "active",
-  },
-  {
-    id: "user-2",
-    name: "Rohan Verma",
-    email: "rohan.verma@dit.example.edu",
-    role: "Placement lead",
-    status: "active",
-  },
-  {
-    id: "user-3",
-    name: "Meera Iyer",
-    email: "meera.iyer@dit.example.edu",
-    role: "Viewer",
-    status: "invited",
-  },
-];
+export interface InviteUserPayload {
+  name: string;
+  email: string;
+  role: UserRole;
+}
 
-export const usersService = {
-  async getUsers(): Promise<CollegeUser[]> {
-    return MOCK_USERS;
-  },
+export async function inviteCollegeUser(
+  payload: InviteUserPayload,
+): Promise<CollegeUser> {
+  await new Promise((resolve) =>
+    setTimeout(resolve, 500),
+  );
 
-  async inviteUser(
-    email: string,
-    role: CollegeUser["role"],
-  ) {
-    return {
-      success: true,
-      email,
-      role,
-    };
-  },
+  const initials = payload.name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
-  async removeUser(id: string) {
-    return {
-      success: true,
-      id,
-    };
-  },
-};
+  return {
+    id: `user-${Date.now()}`,
+    initials,
+    name: payload.name,
+    email: payload.email,
+    role: payload.role,
+  };
+}
+
+export async function removeCollegeUser(
+  userId: string,
+): Promise<void> {
+  await new Promise((resolve) =>
+    setTimeout(resolve, 300),
+  );
+
+  console.log("Removing user:", userId);
+}

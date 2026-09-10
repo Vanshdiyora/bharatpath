@@ -1,5 +1,203 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Project Structure
+
+```text
+bharatpath/
+├─ .git/
+├─ .gitignore
+├─ AGENTS.md
+├─ CLAUDE.md
+├─ README.md
+├─ eslint.config.mjs
+├─ middleware.ts
+├─ next.config.ts
+├─ package.json
+├─ package-lock.json
+├─ postcss.config.mjs
+├─ tsconfig.json
+│
+├─ app/
+│  ├─ globals.css
+│  ├─ layout.tsx
+│  ├─ page.tsx
+│  │
+│  ├─ college/
+│  │  ├─ layout.tsx
+│  │  ├─ page.tsx
+│  │  ├─ analytics/
+│  │  │  └─ page.tsx
+│  │  ├─ settings/
+│  │  │  └─ page.tsx
+│  │  └─ students/
+│  │     └─ page.tsx
+│  │
+│  └─ login/
+│     └─ page.tsx
+│
+├─ assets/
+│  └─ fonts/
+│     ├─ GeneralSans-Bold.woff2
+│     ├─ GeneralSans-Medium.woff2
+│     ├─ GeneralSans-Regular.woff2
+│     └─ GeneralSans-Semibold.woff2
+│
+├─ components/
+│  ├─ auth/
+│  │  └─ login-form.tsx
+│  │
+│  ├─ layout/
+│  │  ├─ header-context.tsx
+│  │  ├─ portal-header.tsx
+│  │  ├─ portal-mobile-nav.tsx
+│  │  ├─ portal-shell.tsx
+│  │  └─ portal-sidebar.tsx
+│  │
+│  └─ ui/
+│     ├─ avatar.tsx
+│     ├─ bar-chart.tsx
+│     ├─ button.tsx
+│     ├─ filter-pills.tsx
+│     ├─ index.ts
+│     ├─ link-state-badge.tsx
+│     ├─ panel.tsx
+│     ├─ progress-list.tsx
+│     ├─ score-band-badge.tsx
+│     ├─ search-input.tsx
+│     ├─ select-dropdown.tsx
+│     ├─ stat-card.tsx
+│     ├─ status-badge.tsx
+│     ├─ table.tsx
+│     └─ ...
+│
+├─ config/
+│  ├─ api.ts
+│  ├─ navigation.ts
+│  └─ portal.ts
+│
+├─ features/
+│  ├─ auth/
+│  │  ├─ hooks/
+│  │  │  └─ use-auth.ts
+│  │  ├─ schemas/
+│  │  │  └─ login.schema.ts
+│  │  ├─ services/
+│  │  │  └─ auth.service.ts
+│  │  └─ types.ts
+│  │
+│  ├─ college/
+│  │  ├─ analytics/
+│  │  │  ├─ components/
+│  │  │  │  ├─ analytics-dashboard.tsx
+│  │  │  │  ├─ index.ts
+│  │  │  │  └─ outcomes-table.tsx
+│  │  │  ├─ hooks/
+│  │  │  │  └─ use-analytics.ts
+│  │  │  ├─ services/
+│  │  │  │  └─ analytics.service.ts
+│  │  │  └─ types.ts
+│  │  │
+│  │  ├─ dashboard/
+│  │  │  ├─ components/
+│  │  │  │  ├─ college-dashboard.tsx
+│  │  │  │  ├─ metric-card.tsx
+│  │  │  │  ├─ recent-activity.tsx
+│  │  │  │  └─ score-distribution.tsx
+│  │  │  ├─ hooks/
+│  │  │  │  └─ use-dashboard.ts
+│  │  │  ├─ services/
+│  │  │  │  └─ dashboard.service.ts
+│  │  │  └─ types.ts
+│  │  │
+│  │  ├─ settings/
+│  │  │  ├─ components/
+│  │  │  │  ├─ billing.tsx
+│  │  │  │  ├─ college-profile.tsx
+│  │  │  │  ├─ college-settings.tsx
+│  │  │  │  └─ college-users.tsx
+│  │  │  ├─ hooks/
+│  │  │  │  └─ use-settings.ts
+│  │  │  ├─ services/
+│  │  │  │  ├─ billing.service.ts
+│  │  │  │  ├─ college.service.ts
+│  │  │  │  └─ users.service.ts
+│  │  │  └─ types.ts
+│  │  │
+│  │  └─ students/
+│  │     ├─ components/
+│  │     │  ├─ bulk-upload-card.tsx
+│  │     │  ├─ index.ts
+│  │     │  ├─ invite-student-modal.tsx
+│  │     │  ├─ link-states-summary.tsx
+│  │     │  ├─ student-actions.tsx
+│  │     │  ├─ student-filters.tsx
+│  │     │  ├─ student-roster.tsx
+│  │     │  ├─ student-status-badge.tsx
+│  │     │  └─ student-table.tsx
+│  │     ├─ hooks/
+│  │     │  └─ use-students.ts
+│  │     ├─ schemas/
+│  │     │  └─ students.schema.ts
+│  │     ├─ services/
+│  │     │  └─ students.service.ts
+│  │     └─ types.ts
+│  │
+│  └─ notifications/
+│     ├─ api/
+│     │  └─ notification-api.ts
+│     ├─ components/
+│     │  ├─ notification-bell.tsx
+│     │  ├─ notification-center.tsx
+│     │  └─ notification-dropdown.tsx
+│     ├─ index.ts
+│     ├─ mock-notifications.ts
+│     ├─ types/
+│     │  └─ notification.types.ts
+│     └─ ...
+│
+├─ lib/
+│  ├─ api/
+│  │  ├─ client.ts
+│  │  ├─ errors.ts
+│  │  └─ types.ts
+│  ├─ auth/
+│  │  ├─ permissions.ts
+│  │  ├─ roles.ts
+│  │  └─ session.ts
+│  └─ tenant/
+│     ├─ resolver.ts
+│     └─ types.ts
+│
+├─ public/
+│  ├─ file.svg
+│  ├─ globe.svg
+│  ├─ next.svg
+│  ├─ vercel.svg
+│  └─ window.svg
+│
+├─ store/
+│  ├─ api/
+│  │  ├─ base-api.ts
+│  │  └─ notification-api.ts
+│  ├─ hooks.ts
+│  ├─ index.ts
+│  ├─ provider.tsx
+│  ├─ selectors/
+│  │  ├─ auth.selectors.ts
+│  │  ├─ notification-selectors.ts
+│  │  ├─ tenant.selectors.ts
+│  │  └─ ui.selectors.ts
+│  ├─ slices/
+│  │  ├─ auth.slice.ts
+│  │  ├─ notification-slice.ts
+│  │  ├─ tenant.slice.ts
+│  │  └─ ui.slice.ts
+│  └─ ...
+│
+└─ types/
+   └─ common.ts
+```
+
 ## Getting Started
 
 First, run the development server:

@@ -1,80 +1,99 @@
 "use client";
 
-import { useState } from "react";
-import { CreditCard } from "lucide-react";
-
 import { usePageHeader } from "@/components/layout/header-context";
-import { CollegeProfileForm } from "./college-profile";
-import { CollegeUsers } from "./college-users";
+
+import { useSettings } from "../hooks/use-settings";
+
 import { Billing } from "./billing";
-import { CollegeSettings } from "../types";
+import { CollegeProfile } from "./college-profile";
+import { CollegeUsers } from "./college-users";
 
-interface CollegeSettingsProps {
-  data: CollegeSettings;
-}
+const tabs = [
+  {
+    id: "profile" as const,
+    label: "College profile",
+  },
+  {
+    id: "users" as const,
+    label: "Users",
+  },
+  {
+    id: "billing" as const,
+    label: "Seats & payment",
+  },
+];
 
-export function CollegeSettingsView({
-  data,
-}: CollegeSettingsProps) {
+export function CollegeSettings() {
+  const {
+    activeTab,
+    changeTab,
+    seats,
+  } = useSettings();
+
   usePageHeader(
     "Settings & Billing",
     "College profile, users, seats and payment",
     {
       stat: {
-        icon: CreditCard,
-        label: `${data.billing.seatsUsed} / ${data.billing.seatsTotal} seats used`,
-        sublabel: data.billing.paymentStatus,
+        label: `${seats.used} of ${seats.total} seats used`,
         progress:
-          data.billing.seatsTotal > 0
-            ? (data.billing.seatsUsed /
-                data.billing.seatsTotal) *
-              100
+          seats.total > 0
+            ? (seats.used / seats.total) * 100
             : 0,
       },
     },
   );
 
-  const [tab, setTab] = useState<
-    "profile" | "users" | "billing"
-  >("profile");
-
-  const tabs = [
-    ["profile", "College profile"],
-    ["users", "Users"],
-    ["billing", "Seats & payment"],
-  ] as const;
-
   return (
-    <div className="mx-auto max-w-[1100px] space-y-6">
-      <div className="flex overflow-x-auto border-b border-[#e7e9ee]">
-        {tabs.map(([value, label]) => (
-          <button
-            key={value}
-            onClick={() => setTab(value)}
-            className={`whitespace-nowrap border-b-2 px-4 py-3 text-xs font-semibold ${
-              tab === value
-                ? "border-[#5b4fcf] text-[#5b4fcf]"
-                : "border-transparent text-[#777f90]"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
+    <div
+      className="min-h-full bg-[#f8f9fb]"
+      style={{ fontFamily: "'General Sans', sans-serif" }}
+    >
+      {/* Settings Tabs */}
+      <div className="border-b border-[#e1e5eb] bg-[#f8f9fb]">
+        <div className="flex h-[49px] items-end">
+          {tabs.map((tab) => {
+            const active = activeTab === tab.id;
+
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => changeTab(tab.id)}
+                className={[
+                  "relative flex h-[49px] items-center px-4",
+                  "whitespace-nowrap text-[13px] font-semibold",
+                  "transition-colors",
+                  active
+                    ? "text-[#131A26]"
+                    : "text-[#64748b] hover:text-[#131A26]",
+                ].join(" ")}
+              >
+                {tab.label}
+
+                {active && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3566b8]" />
+                )}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {tab === "profile" && (
-        <CollegeProfileForm
-          profile={data.profile}
-        />
-      )}
+      {/* Settings Content */}
+      <main className="min-h-[calc(100vh-125px)] py-5">
+        {activeTab === "profile" && (
+          <CollegeProfile />
+        )}
 
-      {tab === "users" && (
-        <CollegeUsers users={data.users} />
-      )}
+        {activeTab === "users" && (
+          <CollegeUsers />
+        )}
 
-      {tab === "billing" && (
-        <Billing billing={data.billing} />
-      )}
+        {activeTab === "billing" && (
+          <Billing />
+        )}
+      </main>
     </div>
   );
 }

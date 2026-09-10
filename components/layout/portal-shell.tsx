@@ -1,6 +1,8 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { usePathname } from "next/navigation";
+
 import { PortalSidebar } from "./portal-sidebar";
 import { PortalHeader } from "./portal-header";
 import { PortalMobileNav } from "./portal-mobile-nav";
@@ -15,6 +17,11 @@ export function PortalShell({
   children,
 }: PortalShellProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const pathname = usePathname();
+
+  const isSettingsPage = pathname.startsWith(
+    "/college/settings",
+  );
 
   return (
     <HeaderProvider>
@@ -24,12 +31,17 @@ export function PortalShell({
           onToggle={() => setCollapsed((value) => !value)}
         />
 
-        <div className="flex min-w-0 flex-1 flex-col h-full overflow-hidden">
+        <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
           <PortalHeader />
 
           <PortalMobileNav />
 
-          <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 bp-scrollbar">
+          <main
+            className={[
+              "flex-1 overflow-y-auto overflow-x-hidden bp-scrollbar",
+              isSettingsPage ? "py-0 px-4" : "p-4",
+            ].join(" ")}
+          >
             {children}
           </main>
         </div>

@@ -1,103 +1,355 @@
-import { BillingData } from "../types";
+"use client";
 
-export function Billing({
-  billing,
-}: {
-  billing: BillingData;
-}) {
+import { Receipt } from "lucide-react";
+
+import { useSettings } from "../hooks/use-settings";
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export function Billing() {
+  const {
+    seats,
+    invoices,
+    requestSeats,
+    isRequestingSeats,
+  } = useSettings();
+
   const percentage =
-    billing.seatsTotal > 0
-      ? Math.min(
-          100,
-          Math.round(
-            (billing.seatsUsed /
-              billing.seatsTotal) *
-              100,
-          ),
-        )
+    seats.total > 0
+      ? Math.min((seats.used / seats.total) * 100, 100)
       : 0;
 
+  const handleRequestSeats = async () => {
+    await requestSeats(50);
+  };
+
   return (
-    <div className="space-y-5">
-      <div className="rounded-xl border border-[#e5e7ec] bg-white p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 className="text-sm font-semibold text-[#252b3b]">
-              Seats & payment
-            </h2>
+    <div
+      className="flex w-full flex-col gap-4 px-4 pb-10"
+      style={{
+        fontFamily: "'General Sans', sans-serif",
+      }}
+    >
+      {/* Billing Cards */}
+      <div
+        className="
+          grid
+          w-full
+          grid-cols-1
+          gap-4
+          min-[1024px]:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]
+        "
+      >
+        {/* =========================
+            Seat Block
+        ========================= */}
+        <section
+          className="
+            flex
+            flex-col
+            gap-[14px]
+            rounded-[12px]
+            border
+            border-[#e1e5eb]
+            bg-white
+            p-5
+            shadow-[0_4px_12px_rgba(19,26,38,0.024)]
+          "
+        >
+          {/* Title + Status */}
+          <div className="flex items-center gap-[10px]">
+            <span className="flex-1 text-[14px] font-semibold leading-[18px] text-[#131A26]">
+              Seat block
+            </span>
 
-            <p className="mt-1 text-xs text-[#8a91a0]">
-              Manage your seat plan and payments.
-            </p>
+            <span
+              className="
+                whitespace-nowrap
+                rounded-full
+                bg-[#eaf6f0]
+                px-[10px]
+                py-1
+                text-[11px]
+                font-semibold
+                leading-[14px]
+                text-[#00845a]
+              "
+            >
+              {seats.status}
+            </span>
           </div>
 
-          <span className="rounded-full bg-[#eaf7ef] px-2.5 py-1 text-[11px] font-semibold text-[#287a4d]">
-            {billing.paymentStatus}
+          {/* Seat Count */}
+          <span
+            className="
+              text-[28px]
+              font-bold
+              leading-8
+              tracking-[-0.02em]
+              text-[#131A26]
+            "
+          >
+            {seats.used} / {seats.total}
           </span>
-        </div>
 
-        <div className="mt-6">
-          <div className="flex justify-between text-xs">
-            <span className="text-[#777f90]">
-              Seats used
-            </span>
-
-            <span className="font-semibold text-[#252b3b]">
-              {billing.seatsUsed} /{" "}
-              {billing.seatsTotal}
-            </span>
-          </div>
-
-          <div className="mt-2 h-2 rounded-full bg-[#f0f1f4]">
-            <div
-              className="h-full rounded-full bg-[#5b4fcf]"
+          {/* Progress */}
+          <span className="block h-2 overflow-hidden rounded-full bg-[#eef0f3]">
+            <span
+              className="
+                block
+                h-full
+                rounded-full
+                bg-[#3566b8]
+                transition-all
+              "
               style={{
                 width: `${percentage}%`,
               }}
             />
-          </div>
-        </div>
-      </div>
+          </span>
 
-      <div className="rounded-xl border border-[#e5e7ec] bg-white">
-        <div className="border-b border-[#e7e9ee] p-5">
-          <h2 className="text-sm font-semibold text-[#252b3b]">
-            Invoices
-          </h2>
-        </div>
-
-        {billing.invoices.map((invoice) => (
-          <div
-            key={invoice.id}
-            className="flex items-center justify-between border-b border-[#f0f1f4] p-5 last:border-0"
+          {/* Description */}
+          <p
+            className="
+              text-[12px]
+              font-normal
+              leading-[17px]
+              text-[#131A26]
+            "
           >
-            <div>
-              <p className="text-sm font-medium text-[#252b3b]">
-                {invoice.id}
-              </p>
+            Seat pricing is confirmed on your invoice. Contact your
+            BharatPath partner manager to change the block mid-term.
+          </p>
 
-              <p className="mt-1 text-xs text-[#8a91a0]">
-                {invoice.date}
-              </p>
-            </div>
+          {/* Actions */}
+          <div
+            className="
+              flex
+              gap-[10px]
+              border-t
+              border-[#eef0f3]
+              pt-3
+            "
+          >
+            <button
+              type="button"
+              disabled={isRequestingSeats}
+              onClick={handleRequestSeats}
+              className="
+                flex-1
+                rounded-[8px]
+                border-0
+                bg-[#5a4bd6]
+                px-3
+                py-3
+                text-[13px]
+                font-semibold
+                leading-[17px]
+                text-white
+                transition
+                hover:bg-[#4f41c8]
+                disabled:cursor-not-allowed
+                disabled:opacity-60
+              "
+            >
+              {isRequestingSeats
+                ? "Requesting..."
+                : "Request more seats"}
+            </button>
 
-            <div className="text-right">
-              <p className="text-sm font-semibold text-[#252b3b]">
-                ₹{invoice.amount.toLocaleString("en-IN")}
-              </p>
-
-              <p
-                className={`mt-1 text-[11px] font-semibold ${
-                  invoice.status === "paid"
-                    ? "text-[#287a4d]"
-                    : "text-[#986c08]"
-                }`}
-              >
-                {invoice.status}
-              </p>
-            </div>
+            <button
+              type="button"
+              className="
+                flex-1
+                rounded-[8px]
+                border
+                border-[#e1e5eb]
+                bg-white
+                px-3
+                py-3
+                text-[13px]
+                font-semibold
+                leading-[17px]
+                text-[#131A26]
+                transition
+                hover:bg-[#f8fafc]
+              "
+              onClick={() => {
+                // Replace with real quote download later.
+              }}
+            >
+              Download quote
+            </button>
           </div>
-        ))}
+        </section>
+
+        {/* =========================
+            Invoices
+        ========================= */}
+        <section
+          className="
+            overflow-x-auto
+            rounded-[12px]
+            border
+            border-[#e1e5eb]
+            bg-white
+            shadow-[0_4px_12px_rgba(19,26,38,0.024)]
+          "
+        >
+          {/* Invoice Title */}
+          <div
+            className="
+              min-w-[420px]
+              border-b
+              border-[#e1e5eb]
+              px-5
+              py-4
+              text-[14px]
+              font-semibold
+              leading-[18px]
+              text-[#131A26]
+            "
+          >
+            Invoices
+          </div>
+
+          {/* Table Header */}
+          <div
+            className="
+              grid
+              min-w-[420px]
+              grid-cols-[minmax(160px,1fr)_104px_88px]
+              gap-3
+              border-b
+              border-[#e1e5eb]
+              bg-[#f3f5f7]
+              px-5
+              py-3
+            "
+          >
+            <span
+              className="
+                text-[11px]
+                font-bold
+                leading-[14px]
+                text-[#64748b]
+              "
+            >
+              INVOICE
+            </span>
+
+            <span
+              className="
+                text-[11px]
+                font-bold
+                leading-[14px]
+                text-[#64748b]
+              "
+            >
+              AMOUNT
+            </span>
+
+            <span
+              className="
+                text-right
+                text-[11px]
+                font-bold
+                leading-[14px]
+                text-[#64748b]
+              "
+            >
+              STATUS
+            </span>
+          </div>
+
+          {/* Invoice Rows */}
+          {invoices.map((invoice, index) => (
+            <div
+              key={invoice.id}
+              className={[
+                "grid min-h-[52px] min-w-[420px]",
+                "grid-cols-[minmax(160px,1fr)_104px_88px]",
+                "items-center gap-3 px-5 py-3",
+                index > 0
+                  ? "border-t border-[#eef0f3]"
+                  : "",
+              ].join(" ")}
+            >
+              {/* Invoice */}
+              <div className="flex min-w-0 items-center gap-[10px]">
+                <Receipt
+                  size={16}
+                  strokeWidth={2}
+                  className="shrink-0 text-[#64748b]"
+                />
+
+                <div className="flex min-w-0 flex-col gap-[2px]">
+                  <span
+                    className="
+                      truncate
+                      text-[13px]
+                      font-semibold
+                      leading-[17px]
+                      text-[#131A26]
+                    "
+                  >
+                    {invoice.id}
+                  </span>
+
+                  <span
+                    className="
+                      text-[11px]
+                      font-normal
+                      leading-[14px]
+                      text-[#64748b]
+                    "
+                  >
+                    {invoice.date}
+                  </span>
+                </div>
+              </div>
+
+              {/* Amount */}
+              <span
+                className="
+                  flex
+                  items-center
+                  text-[13px]
+                  font-semibold
+                  leading-[17px]
+                  text-[#131A26]
+                "
+              >
+                {formatCurrency(invoice.amount)}
+              </span>
+
+              {/* Status */}
+              <span className="flex items-center justify-end">
+                <span
+                  className="
+                    whitespace-nowrap
+                    rounded-full
+                    bg-[#eaf6f0]
+                    px-[10px]
+                    py-1
+                    text-[11px]
+                    font-semibold
+                    leading-[14px]
+                    text-[#00845a]
+                  "
+                >
+                  {invoice.status}
+                </span>
+              </span>
+            </div>
+          ))}
+        </section>
       </div>
     </div>
   );

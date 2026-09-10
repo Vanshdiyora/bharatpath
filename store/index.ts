@@ -7,6 +7,7 @@ import notificationUIReducer from "./slices/notification-slice";
 
 import { baseApi } from "./api/base-api";
 import { notificationApi } from "./api/notification-api";
+import collegeSettingsReducer from "./slices/college-settings.slice";
 
 export const store = configureStore({
   reducer: {
@@ -24,7 +25,7 @@ export const store = configureStore({
      * dropdown is open or closed.
      */
     notificationUI: notificationUIReducer,
-
+    collegeSettings: collegeSettingsReducer,
     /*
      * RTK Query APIs
      */

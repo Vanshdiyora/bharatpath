@@ -1,39 +1,44 @@
+export type SettingsTab = "profile" | "users" | "billing";
+
+export type UserRole = "Owner" | "Placement lead" | "Viewer";
+
 export interface CollegeProfile {
-  id: string;
-  legalName: string;
-  displayName: string;
-  aicteCode?: string;
-  city?: string;
-  state?: string;
-  contactEmail: string;
-  phone?: string;
+  legalInstitutionName: string;
+  aicteCode: string;
+  city: string;
+  verified: boolean;
+  verifiedOn: string;
 }
 
 export interface CollegeUser {
   id: string;
+  initials: string;
   name: string;
   email: string;
-  role: "Owner" | "Placement lead" | "Viewer";
-  status: "active" | "invited";
+  role: UserRole;
+}
+
+export interface SeatInfo {
+  used: number;
+  total: number;
+  status: "Active" | "Inactive";
 }
 
 export interface Invoice {
   id: string;
   date: string;
   amount: number;
-  status: "paid" | "pending";
+  status: "Paid" | "Pending" | "Overdue";
 }
 
-export interface BillingData {
-  seatsUsed: number;
-  seatsTotal: number;
-  plan: "block150" | "block300" | "custom";
-  paymentStatus: "active" | "pending" | "full";
-  invoices: Invoice[];
-}
-
-export interface CollegeSettings {
+export interface CollegeSettingsState {
+  activeTab: SettingsTab;
   profile: CollegeProfile;
   users: CollegeUser[];
-  billing: BillingData;
+  seats: SeatInfo;
+  invoices: Invoice[];
+  isSavingProfile: boolean;
+  isInvitingUser: boolean;
+  isRequestingSeats: boolean;
+  error: string | null;
 }
