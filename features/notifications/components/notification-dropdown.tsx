@@ -21,7 +21,7 @@ import {
 } from "@/store/api/notification-api";
 
 import { useAppDispatch } from "@/store/hooks";
-import { closeNotifications } from "@/store/slices/notification-slice";
+import { closeNotifications } from "@/store/common/slices/notification-slice";
 import type {
   Notification,
   NotificationType,

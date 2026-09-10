@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import authReducer from "./slices/auth.slice";
-import tenantReducer from "./slices/tenant.slice";
-import uiReducer from "./slices/ui.slice";
-import notificationUIReducer from "./slices/notification-slice";
+import authReducer from "./common/slices/auth.slice";
+import tenantReducer from "./common/slices/tenant.slice";
+import uiReducer from "./common/slices/ui.slice";
+import notificationUIReducer from "./common/slices/notification-slice";
 
 import { baseApi } from "./api/base-api";
 import { notificationApi } from "./api/notification-api";
-import collegeSettingsReducer from "./slices/college-settings.slice";
+import collegeSettingsReducer from "./college/settings/college-settings.slice";
 
 export const store = configureStore({
   reducer: {

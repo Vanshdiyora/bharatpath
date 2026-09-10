@@ -11,8 +11,8 @@ import {
   LoginFormValues,
 } from "@/features/auth/schemas/login.schema";
 import { useAppDispatch } from "@/store/hooks";
-import { setUser } from "@/store/slices/auth.slice";
-import { setTenant } from "@/store/slices/tenant.slice";
+import { setUser } from "@/store/common/slices/auth.slice";
+import { setTenant } from "@/store/common/slices/tenant.slice";
 import { PORTAL_TYPES } from "@/config/portal";
 
 export function LoginForm() {

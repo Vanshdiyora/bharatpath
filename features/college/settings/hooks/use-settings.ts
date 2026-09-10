@@ -12,7 +12,7 @@ import {
   setProfile,
   setRequestingSeats,
   setSavingProfile,
-} from "@/store/slices/college-settings.slice";
+} from "@/store/college/settings/college-settings.slice";
 
 import {
   selectCollegeProfile,
@@ -23,7 +23,7 @@ import {
   selectIsSavingProfile,
   selectSeatInfo,
   selectSettingsTab,
-} from "@/store/selectors/college-settings.selectors";
+} from "@/store/college/settings/college-settings.selectors";
 
 import {
   updateCollegeProfile,

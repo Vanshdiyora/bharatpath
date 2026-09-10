@@ -6,7 +6,7 @@ import {
 
 import {
   selectNotificationsOpen,
-} from "@/store/selectors/notification-selectors";
+} from "@/store/common/selectors/notification-selectors";
 
 import { NotificationBell } from "./notification-bell";
 import { NotificationDropdown } from "./notification-dropdown";

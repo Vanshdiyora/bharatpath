@@ -3,7 +3,7 @@
 import { BadgeCheck } from "lucide-react";
 
 import { useAppDispatch } from "@/store/hooks";
-import { updateProfileField } from "@/store/slices/college-settings.slice";
+import { updateProfileField } from "@/store/college/settings/college-settings.slice";
 
 import { useSettings } from "../hooks/use-settings";
 

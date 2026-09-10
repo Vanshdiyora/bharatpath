@@ -9,9 +9,9 @@ import {
 
 import { collegeNavigation } from "@/config/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { selectTenantName } from "@/store/selectors/tenant.selectors";
-import { clearTenant } from "@/store/slices/tenant.slice";
-import { clearUser } from "@/store/slices/auth.slice";
+import { selectTenantName } from "@/store/common/selectors/tenant.selectors";
+import { clearTenant } from "@/store/common/slices/tenant.slice";
+import { clearUser } from "@/store/common/slices/auth.slice";
 
 interface PortalSidebarProps {
   collapsed: boolean;

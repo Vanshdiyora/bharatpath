@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 
 import { useAppSelector } from "@/store/hooks";
-import { selectPortal } from "@/store/selectors/tenant.selectors";
+import { selectPortal } from "@/store/common/selectors/tenant.selectors";
 import {
   PORTAL_TYPES,
   PortalType,

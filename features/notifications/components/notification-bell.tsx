@@ -7,7 +7,7 @@ import { useAppDispatch } from "@/store/hooks";
 
 import {
   toggleNotifications,
-} from "@/store/slices/notification-slice";
+} from "@/store/common/slices/notification-slice";
 
 import {
   useGetNotificationsQuery,

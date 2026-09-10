@@ -1,4 +1,4 @@
-import { RootState } from "../index";
+import { RootState } from "../../index";
 
 export const selectTenant = (
   state: RootState,
