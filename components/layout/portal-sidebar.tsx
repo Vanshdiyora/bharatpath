@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 import {
   ArrowLeftToLine,
   LogOut,
@@ -29,6 +30,8 @@ import {
 import {
   clearUser,
 } from "@/store/common/slices/auth.slice";
+
+import { ConfirmModal } from "@/components/ui";
 
 /*
  * ============================================================
@@ -72,6 +75,7 @@ export function PortalSidebar({
   const router = useRouter();
 
   const dispatch = useAppDispatch();
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   /*
    * ============================================================
@@ -688,7 +692,7 @@ export function PortalSidebar({
 
               <button
                 type="button"
-                onClick={handleLogout}
+                onClick={() => setLogoutModalOpen(true)}
                 aria-label="Log out"
                 title="Log out"
                 className="
@@ -716,6 +720,15 @@ export function PortalSidebar({
           )}
         </div>
       </div>
+
+      <ConfirmModal
+        open={logoutModalOpen}
+        title="Log out of BharatPath?"
+        description="You will need to sign in again to access this portal."
+        confirmLabel="Log out"
+        onClose={() => setLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </aside>
   );
 }

@@ -26,51 +26,31 @@ bharatpath/
 │  ├─ globals.css
 │  ├─ layout.tsx
 │  ├─ page.tsx
-│  │
-│  ├─ login/
-│  │  └─ page.tsx
-│  │
+│  ├─ login/page.tsx
 │  ├─ admin/
-│  │  ├─ dashboard/
-│  │  │  └─ page.tsx
-│  │  ├─ disputes/
-│  │  │  └─ page.tsx
+│  │  ├─ dashboard/page.tsx
+│  │  ├─ disputes/page.tsx
 │  │  ├─ layout.tsx
-│  │  ├─ login/
-│  │  │  └─ page.tsx
+│  │  ├─ login/page.tsx
 │  │  ├─ page.tsx
-│  │  └─ types.ts
-│  │  │  └─ page.tsx
-│  │  │  └─ create/
-│  │  │     ├─ components/
-│  │  │     │  ├─ job-create-page.tsx
-│  │  │     │  └─ job-skills-field.tsx
-│  │  │     ├─ data/
-│  │  │     │  └─ skills.data.ts
-│  │  │     ├─ hooks/
-│  │  │     │  └─ use-job-create-form.ts
-│  │  │     ├─ index.ts
-│  │  │     ├─ schemas/
-│  │  │     │  └─ job.schema.ts
-│  │  │     └─ types.ts
-│  │  └─ students/
-│  │     └─ page.tsx
-│  │
+│  │  ├─ queue/page.tsx
+│  │  ├─ settings/page.tsx
+│  │  └─ users/page.tsx
+│  ├─ college/
+│  │  ├─ analytics/page.tsx
+│  │  ├─ layout.tsx
+│  │  ├─ page.tsx
+│  │  ├─ settings/page.tsx
+│  │  └─ students/page.tsx
 │  └─ employer/
-│     ├─ applications/
-│     │  └─ page.tsx
-│     ├─ candidates/
-│     │  └─ page.tsx
-│     ├─ dashboard/
-│     │  └─ page.tsx
-│     ├─ jobs/
-│     │  ├─ create/
-│     │  │  └─ page.tsx
-│     │  └─ page.tsx
+│     ├─ applications/page.tsx
+│     ├─ candidates/page.tsx
+│     ├─ dashboard/page.tsx
+│     ├─ jobs/page.tsx
+│     ├─ jobs/create/page.tsx
 │     ├─ layout.tsx
 │     ├─ page.tsx
-│     └─ settings/
-│        └─ page.tsx
+│     └─ settings/page.tsx
 │
 ├─ assets/
 │  └─ fonts/
