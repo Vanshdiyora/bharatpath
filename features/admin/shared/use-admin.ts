@@ -3,14 +3,12 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 import {
-  markAllNotificationsRead,
   signIn as signInAction,
-  selectAdminNotifications,
-  selectAdminNotificationsOpen,
   selectAdminSidebarCollapsed,
-  toggleNotifications,
   toggleSidebar,
 } from "@/store/admin";
+import { toggleNotifications } from "@/store/common/slices/notification-slice";
+import { selectNotificationsOpen } from "@/store/common/selectors/notification-selectors";
 
 export function useAdmin() {
   const dispatch = useAppDispatch();
@@ -19,17 +17,12 @@ export function useAdmin() {
     selectAdminSidebarCollapsed,
   );
 
-  const notifications = useAppSelector(
-    selectAdminNotifications,
-  );
-
   const notificationsOpen = useAppSelector(
-    selectAdminNotificationsOpen,
+    selectNotificationsOpen,
   );
 
   return {
     sidebarCollapsed,
-    notifications,
     notificationsOpen,
 
     signIn: () => {
@@ -49,8 +42,5 @@ export function useAdmin() {
       dispatch(toggleNotifications());
     },
 
-    markAllNotificationsRead: () => {
-      dispatch(markAllNotificationsRead());
-    },
   };
 }

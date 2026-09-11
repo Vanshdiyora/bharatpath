@@ -1,9 +1,21 @@
 import type { RootState } from "@/store";
 
-export const selectAdminDashboard = (state: RootState) => state.admin.dashboard;
+export const selectAdminDashboard = (
+  state: RootState,
+) => state.admin.dashboard;
 
-export const selectAdminNotifications = (state: RootState) =>
-  state.admin.dashboard.notifications;
+export const selectDashboardMetrics = (
+  state: RootState,
+) => state.admin.dashboard.metrics;
 
-export const selectAdminNotificationsOpen = (state: RootState) =>
-  state.admin.dashboard.notificationsOpen;
+export const selectOldestItems = (
+  state: RootState,
+) => state.admin.dashboard.oldestItems;
+
+export const selectPlatformTotals = (
+  state: RootState,
+) => state.admin.dashboard.platformTotals;
+
+export const selectIntakeCleared = (
+  state: RootState,
+) => state.admin.dashboard.intakeCleared;

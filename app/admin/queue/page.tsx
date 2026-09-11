@@ -1,3 +1,5 @@
-import { QueuePage } from "@/features/admin";
+import { QueuePage } from "@/features/admin/queue";
 
-export default function Page(){return <QueuePage/>;}
+export default function AdminQueueRoute() {
+  return <QueuePage />;
+}

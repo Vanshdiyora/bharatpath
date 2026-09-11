@@ -11,7 +11,7 @@ import {
   LayoutDashboard,
   Gavel,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+
 export const employerNavigation = [
   {
     key: "dashboard",

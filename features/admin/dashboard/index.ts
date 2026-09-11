@@ -1,1 +1,1 @@
-export { AdminDashboard } from "./dashboard-page";
+export { AdminDashboard } from "./components/admin-dashboard";

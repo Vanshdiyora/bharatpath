@@ -1,5 +1,5 @@
-import { UsersPage } from "@/features/admin";
+import { UsersPage } from "@/features/admin/users";
 
-export default function Page() { 
-    return <UsersPage />; 
+export default function AdminUsersRoute() {
+  return <UsersPage />;
 }

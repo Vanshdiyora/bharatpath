@@ -63,7 +63,7 @@ export function EmployerSettingsPage() {
     <div className="min-h-full bg-[#f7f8fa] font-sans text-[#111827]">
       <SettingsTabs />
 
-      <main className="mx-auto w-full max-w-[1000px] py-4">
+      <main className="w-full max-w-[1000px] py-4">
         {renderTab()}
       </main>
 
