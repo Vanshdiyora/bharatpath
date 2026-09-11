@@ -469,7 +469,7 @@ export function PortalSidebar({
                   min-h-10
                   cursor-pointer
                   items-center
-                  gap-[11px]
+                  gap-2.75
                   rounded-lg
                   px-[11px]
                   py-[10px]
