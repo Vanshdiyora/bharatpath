@@ -472,7 +472,7 @@ export function PortalSidebar({
                   gap-2.75
                   rounded-lg
                   px-2.75
-                  py-[10px]
+                  py-2.5
                   transition
                   ${
                     collapsed
