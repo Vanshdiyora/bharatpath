@@ -62,7 +62,7 @@ export function MetricCard({
   status,
   statusTone = "neutral",
   onClick,
-}: MetricCardProps) {
+}: Readonly<MetricCardProps>) {
   const Component = onClick ? "button" : "div";
 
   return (
@@ -70,17 +70,17 @@ export function MetricCard({
       type={onClick ? "button" : undefined}
       onClick={onClick}
       className={[
-        "w-full rounded-[16px] border border-[#e5e7ec] bg-white px-6 py-5 text-left",
+        "w-full rounded-2xl border border-[#e5e7ec] bg-white px-6 py-5 text-left",
         "transition-all duration-150",
         onClick
-          ? "cursor-pointer hover:-translate-y-[1px] hover:border-[#d9dce4] hover:shadow-[0_6px_18px_rgba(19,26,38,0.05)] focus:outline-none focus:ring-2 focus:ring-[#5b4fcf]/20"
+          ? "cursor-pointer hover:-translate-y-px hover:border-[#d9dce4] hover:shadow-[0_6px_18px_rgba(19,26,38,0.05)] focus:outline-none focus:ring-2 focus:ring-[#5b4fcf]/20"
           : "",
       ].join(" ")}
     >
       {/* Value + Icon */}
       <div className="flex items-start justify-between gap-4">
         <p
-          className="text-[28px] font-bold leading-[38px] tracking-[-0.02em] text-[#151b2b]"
+          className="text-[28px] font-bold leading-9.5 tracking-[-0.02em] text-[#151b2b]"
           style={{
             fontFamily: "'General Sans', sans-serif",
           }}
@@ -100,7 +100,7 @@ export function MetricCard({
 
       {/* Title */}
       <p
-        className="mt-0 text-[12px] font-normal leading-[20px] text-[#777f90]"
+        className="mt-0 text-[12px] font-normal leading-5 text-[#777f90]"
         style={{
           fontFamily: "'General Sans', sans-serif",
         }}
@@ -114,7 +114,7 @@ export function MetricCard({
           <span
             className={[
               "inline-flex items-center rounded-full px-2.5 py-1",
-              "text-[11px] font-semibold leading-[15px]",
+              "text-[11px] font-semibold leading-3.75",
               statusToneClasses[statusTone],
             ].join(" ")}
             style={{
