@@ -70,7 +70,7 @@ export function PortalSidebar({
   collapsed,
   onToggle,
   portal,
-}: PortalSidebarProps) {
+}: Readonly<PortalSidebarProps>) {
   const pathname = usePathname();
   const router = useRouter();
 
