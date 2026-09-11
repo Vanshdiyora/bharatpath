@@ -471,7 +471,7 @@ export function PortalSidebar({
                   items-center
                   gap-2.75
                   rounded-lg
-                  px-[11px]
+                  px-2.75
                   py-[10px]
                   transition
                   ${
